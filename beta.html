@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join the Beta — Robely</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #14182E; --cream: #F5F0E6; --gold: #C9A262;
+      --offwht: #EDE8DC; --muted: #8B8070; --slate: #5A6070; --dark: #1A1E38;
+    }
+    body { font-family: 'EB Garamond', Georgia, serif; background: var(--navy); color: var(--cream); }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2.5rem; background: rgba(20,24,46,0.96); backdrop-filter: blur(12px);
+    }
+    .nav-logo { font-size: 1.4rem; letter-spacing: 0.18em; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.78rem; letter-spacing: 0.12em; color: #8B8070; text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--navy); background: var(--gold); padding: 0.5rem 1.2rem; text-decoration: none; }
+
+    .page-hero {
+      padding: 10rem 2.5rem 5rem; max-width: 800px;
+    }
+    .eyebrow { font-size: 0.8rem; letter-spacing: 0.22em; color: var(--gold); font-style: italic; margin-bottom: 1rem; }
+    h1 { font-size: clamp(3rem, 7vw, 6rem); color: #fff; font-weight: 400; line-height: 1; }
+    .rule { width: 100px; height: 3px; background: var(--gold); margin: 2rem 0; }
+    .hero-sub { font-size: 1.2rem; font-style: italic; color: var(--muted); line-height: 1.65; }
+
+    .content { padding: 0 2.5rem 6rem; max-width: 900px; }
+
+    /* Steps */
+    .steps { display: flex; flex-direction: column; gap: 0; margin: 3rem 0 4rem; }
+    .step {
+      display: grid; grid-template-columns: 80px 1fr; gap: 2rem;
+      padding: 2.5rem 0; border-bottom: 1px solid rgba(201,162,98,0.2);
+      align-items: start;
+    }
+    .step:first-child { border-top: 1px solid rgba(201,162,98,0.2); }
+    .step-num {
+      font-size: 2.5rem; color: var(--gold); line-height: 1;
+    }
+    .step-head {
+      font-size: 1.3rem; color: #fff; margin-bottom: 0.6rem; line-height: 1.2;
+    }
+    .step-body {
+      font-size: 1.05rem; font-style: italic; color: var(--muted); line-height: 1.65;
+    }
+    .step-tag {
+      display: inline-block; margin-top: 0.8rem;
+      background: rgba(201,162,98,0.15); border: 1px solid rgba(201,162,98,0.4);
+      padding: 0.3rem 0.8rem; font-size: 0.72rem; letter-spacing: 0.14em; color: var(--gold);
+      font-style: normal;
+    }
+
+    /* CTA button */
+    .cta-block { margin: 3rem 0; }
+    .cta-btn {
+      display: inline-block; background: var(--gold); color: var(--navy);
+      padding: 1.1rem 2.8rem; font-size: 1rem; letter-spacing: 0.14em;
+      text-decoration: none; font-family: 'EB Garamond', Georgia, serif;
+      transition: opacity 0.2s;
+    }
+    .cta-btn:hover { opacity: 0.85; }
+    .cta-note {
+      margin-top: 1rem; font-size: 0.9rem; font-style: italic; color: var(--muted);
+    }
+
+    /* What to expect */
+    .expect-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem; margin-top: 3rem;
+    }
+    .expect-card {
+      border-top: 2px solid var(--gold); padding: 1.8rem 1.5rem;
+      background: rgba(255,255,255,0.04);
+    }
+    .expect-title {
+      font-size: 0.78rem; letter-spacing: 0.14em; color: var(--gold);
+      margin-bottom: 0.6rem; font-style: normal;
+    }
+    .expect-body {
+      font-size: 1rem; font-style: italic; color: var(--muted); line-height: 1.6;
+    }
+
+    .section-label { font-size: 0.72rem; letter-spacing: 0.22em; color: var(--gold); margin-bottom: 1.5rem; display: block; }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); color: #fff; font-weight: 400; margin-bottom: 1rem; }
+
+    footer {
+      background: rgba(0,0,0,0.3); border-top: 1px solid rgba(201,162,98,0.2);
+      padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-size: 1.2rem; letter-spacing: 0.18em; color: #fff; }
+    .footer-sub { font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      nav { padding: 1rem 1.5rem; }
+      .step { grid-template-columns: 50px 1fr; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">ROBELY</a>
+  <ul class="nav-links">
+    <li><a href="index.html#product">Product</a></li>
+    <li><a href="index.html#tryon">Try-On</a></li>
+    <li><a href="index.html#storefront">Storefront</a></li>
+    <li><a href="coverage.html">Coverage</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a class="nav-cta" href="beta.html" style="background:#fff;color:var(--navy);">JOIN BETA</a>
+</nav>
+
+<div class="page-hero">
+  <p class="eyebrow">— Early access</p>
+  <h1>Join the<br>Beta.</h1>
+  <div class="rule"></div>
+  <p class="hero-sub">Robely is live in TestFlight — iOS only, invite-based. Here's how to get in, what to expect, and how to give feedback that shapes the product.</p>
+</div>
+
+<div class="content">
+
+  <!-- How to install -->
+  <span class="section-label">§ 01 &nbsp; HOW TO INSTALL</span>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div>
+        <p class="step-head">Download TestFlight</p>
+        <p class="step-body">TestFlight is Apple's official beta testing app. Search "TestFlight" in the App Store and install it — it's free and takes about 30 seconds.</p>
+        <span class="step-tag">iOS ONLY · iPhone required</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div>
+        <p class="step-head">Request your invite</p>
+        <p class="step-body">Tap the button below to request access. We'll send you a TestFlight invite link to your email within 24 hours. Beta spots are limited — we're onboarding in small batches to keep the experience tight.</p>
+        <div class="cta-block">
+          <a class="cta-btn" href="mailto:beta@robely.ai?subject=Beta Access Request&body=Hi, I'd like to join the Robely beta. My name is:">REQUEST BETA ACCESS</a>
+          <p class="cta-note">We'll reply within 24 hours with your invite link.</p>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div>
+        <p class="step-head">Open your invite link</p>
+        <p class="step-body">Open the invite link on your iPhone. It will launch TestFlight and prompt you to install Robely. Tap Accept → Install. The app is about 40MB.</p>
+        <span class="step-tag">Requires iOS 16+</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div>
+        <p class="step-head">Start scanning</p>
+        <p class="step-body">Open Robely, create your account, and scan your first piece. The Closet Scanner identifies brand, category, and live resale value from a single photo. Start with something you know — a pair of sneakers, a jacket, a watch.</p>
+        <span class="step-tag">SCAN → INDEX → EXPLORE</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- What to expect -->
+  <span class="section-label">§ 02 &nbsp; WHAT TO EXPECT</span>
+  <h2>Eight surfaces. Real data.</h2>
+
+  <div class="expect-grid">
+    <div class="expect-card">
+      <p class="expect-title">SCAN</p>
+      <p class="expect-body">Point your camera at any piece. AI returns brand, category, and a live resale range from eBay sold comps.</p>
+    </div>
+    <div class="expect-card">
+      <p class="expect-title">CLOSET INDEX</p>
+      <p class="expect-body">Every piece graded: GRAIL vs CORE, cost-per-wear, days since last worn. Your closet as a financial ledger.</p>
+    </div>
+    <div class="expect-card">
+      <p class="expect-title">TRY-ON ME</p>
+      <p class="expect-body">Select pieces from your index, pick a model (or add your own photo), and visualize the outfit on a real body.</p>
+    </div>
+    <div class="expect-card">
+      <p class="expect-title">VOICE STYLIST</p>
+      <p class="expect-body">Tell your stylist where you're going. Get three curated looks built from your own closet.</p>
+    </div>
+    <div class="expect-card">
+      <p class="expect-title">REMIX</p>
+      <p class="expect-body">Pick one anchor piece and get CLASS, DINNER, and WEEKEND outfit variations built around it automatically.</p>
+    </div>
+    <div class="expect-card">
+      <p class="expect-title">WHAT THEY WORE</p>
+      <p class="expect-body">Daily red carpet, runway, and street style — each look linked directly back to your closet for remixing.</p>
+    </div>
+  </div>
+
+  <!-- Feedback -->
+  <div style="margin-top:4rem;">
+    <span class="section-label">§ 03 &nbsp; GIVING FEEDBACK</span>
+    <h2>Your feedback builds the product.</h2>
+    <p style="font-size:1.05rem;font-style:italic;color:var(--muted);line-height:1.75;margin-top:1rem;max-width:620px;">
+      Beta testers are the product team. Shake your phone at any time inside the app to send a screenshot and note directly to us. Or email <a href="mailto:beta@robely.ai" style="color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(201,162,98,0.4);">beta@robely.ai</a> with anything — bugs, ideas, things that felt off, things you loved.
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  <span class="footer-logo">ROBELY</span>
+  <span class="footer-sub">Own your Closet. Every piece. Every wear. Every dollar.</span>
+  <span style="font-size:0.75rem;letter-spacing:0.12em;color:#C9A262;">LIVE BETA</span>
+</footer>
+
+</body>
+</html>

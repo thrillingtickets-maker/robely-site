@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonials — Robely</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #14182E; --cream: #F5F0E6; --gold: #C9A262;
+      --offwht: #EDE8DC; --muted: #8B8070; --slate: #5A6070; --dark: #1A1E38;
+    }
+    body { font-family: 'EB Garamond', Georgia, serif; background: var(--navy); color: var(--cream); }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2.5rem; background: rgba(20,24,46,0.96); backdrop-filter: blur(12px);
+    }
+    .nav-logo { font-size: 1.4rem; letter-spacing: 0.18em; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.78rem; letter-spacing: 0.12em; color: #8B8070; text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-cta { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--navy); background: var(--gold); padding: 0.5rem 1.2rem; text-decoration: none; }
+
+    .page-hero { padding: 10rem 2.5rem 5rem; }
+    .eyebrow { font-size: 0.8rem; letter-spacing: 0.22em; color: var(--gold); font-style: italic; margin-bottom: 1rem; }
+    h1 { font-size: clamp(3rem, 7vw, 6rem); color: #fff; font-weight: 400; line-height: 1; }
+    .rule { width: 100px; height: 3px; background: var(--gold); margin: 2rem 0; }
+    .hero-sub { font-size: 1.2rem; font-style: italic; color: var(--muted); max-width: 560px; line-height: 1.6; }
+
+    .testimonials-section { padding: 2rem 2.5rem 6rem; max-width: 1200px; margin: 0 auto; }
+
+    /* Featured (large) testimonials */
+    .featured-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 1.5rem; margin-bottom: 1.5rem;
+    }
+    @media (max-width: 600px) {
+      .featured-grid { grid-template-columns: 1fr; }
+    }
+    .testimonial-featured {
+      background: rgba(255,255,255,0.04);
+      border-top: 3px solid var(--gold);
+      padding: 2.5rem 2.2rem;
+    }
+    .quote-mark { font-size: 4rem; color: var(--gold); line-height: 0.5; margin-bottom: 1.5rem; opacity: 0.6; }
+    .quote-text { font-size: 1.15rem; font-style: italic; color: var(--cream); line-height: 1.8; margin-bottom: 1.8rem; }
+    .quote-author { font-size: 0.8rem; letter-spacing: 0.14em; color: var(--gold); }
+    .quote-title { font-size: 0.88rem; font-style: italic; color: var(--muted); margin-top: 0.25rem; }
+
+    /* Standard testimonial grid */
+    .standard-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: rgba(255,255,255,0.03);
+      border-top: 2px solid rgba(201,162,98,0.4);
+      padding: 2rem 1.8rem;
+    }
+    .quote-text-sm { font-size: 1.05rem; font-style: italic; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
+
+    /* CTA */
+    .cta-section {
+      text-align: center; padding: 5rem 2.5rem;
+      border-top: 1px solid rgba(201,162,98,0.2);
+    }
+    .cta-label { font-size: 0.8rem; letter-spacing: 0.22em; color: var(--gold); font-style: italic; margin-bottom: 1.5rem; }
+    .cta-heading { font-size: clamp(2rem, 4vw, 3rem); color: #fff; font-weight: 400; margin-bottom: 2rem; }
+    .cta-btn {
+      display: inline-block; background: var(--gold); color: var(--navy);
+      padding: 1rem 2.5rem; font-size: 1rem; letter-spacing: 0.14em;
+      text-decoration: none; font-family: inherit;
+    }
+
+    footer {
+      background: rgba(0,0,0,0.3); border-top: 1px solid rgba(201,162,98,0.2);
+      padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-size: 1.2rem; letter-spacing: 0.18em; color: #fff; }
+    .footer-sub { font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      nav { padding: 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">ROBELY</a>
+  <ul class="nav-links">
+    <li><a href="index.html#product">Product</a></li>
+    <li><a href="testimonials.html" class="active">Testimonials</a></li>
+    <li><a href="articles.html">Articles</a></li>
+    <li><a href="coverage.html">Coverage</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a class="nav-cta" href="beta.html">JOIN BETA</a>
+</nav>
+
+<div class="page-hero">
+  <p class="eyebrow">— From the closet</p>
+  <h1>What people<br>are saying.</h1>
+  <div class="rule"></div>
+  <p class="hero-sub">Beta testers. Collectors. Everyday people who opened their closet and found something they didn't expect.</p>
+</div>
+
+<div class="testimonials-section">
+
+  <!-- Featured large quotes -->
+  <div class="featured-grid">
+
+    <div class="testimonial-featured">
+      <div class="quote-mark">"</div>
+      <p class="quote-text">I've been reselling vintage for three years and I've never had a tool like this. Robely scanned my entire collection in a weekend — 140 pieces — and gave me live resale comps for all of it. I found out I had a vintage Helmut Lang jacket sitting in a bin worth $680. I had no idea. I listed it that night. Sold in two days. The app paid for itself about a thousand times over in the first week.</p>
+      <p class="quote-author">JORDAN M., 28 — New York, NY</p>
+      <p class="quote-title">Vintage collector & reseller</p>
+    </div>
+
+    <div class="testimonial-featured">
+      <div class="quote-mark">"</div>
+      <p class="quote-text">As someone who works in fashion, I was prepared to be unimpressed. I wasn't. Robely does in eight seconds what takes me twenty minutes to do manually for clients — and it does it with live market data I don't have access to. The Voice Stylist is eerily good. I gave it "Cannes Film Festival, day three, something unexpected" and it pulled three looks from a client's existing wardrobe that I would have been proud to put together myself.</p>
+      <p class="quote-author">NADIA F., 29 — Brooklyn, NY</p>
+      <p class="quote-title">Professional stylist & fashion week regular</p>
+    </div>
+
+  </div>
+
+  <!-- Standard grid -->
+  <div class="standard-grid">
+
+    <div class="testimonial-card">
+      <div class="quote-mark" style="font-size:2.5rem;">"</div>
+      <p class="quote-text-sm">I used to spend 25 minutes every morning staring at my closet. Now I open Robely, hit Voice Stylist, say "work meeting, confident but not trying too hard" and I have three options in literally eight seconds. I've been late to work zero times since I started using it.</p>
+      <p class="quote-author">PRIYA S., 31 — Los Angeles, CA</p>
+      <p class="quote-title">Marketing director</p>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="quote-mark" style="font-size:2.5rem;">"</div>
+      <p class="quote-text-sm">The cost-per-wear breakdown broke my brain in the best way. My Sambas are $1.40 per wear. My Travis Scott Forces that I keep on ice are $180 per wear. Robely basically told me I've been treating display pieces like investments and wearers like throwaways.</p>
+      <p class="quote-author">MARCUS T., 24 — Atlanta, GA</p>
+      <p class="quote-title">Sneakerhead</p>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="quote-mark" style="font-size:2.5rem;">"</div>
+      <p class="quote-text-sm">I thought it was going to be some kind of frivolous styling game. Instead, the first thing it showed me was that I have $4,800 worth of rarely-worn clothing in my closet. It felt like finding money in a coat pocket, except the coat pocket was my whole wardrobe. I've sold four pieces. I'm a convert.</p>
+      <p class="quote-author">DIANE L., 45 — Chicago, IL</p>
+      <p class="quote-title">Attorney</p>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="quote-mark" style="font-size:2.5rem;">"</div>
+      <p class="quote-text-sm">I thrift constantly and the Closet Scanner is genuinely magic. I'll point it at something I found for $12 at Goodwill and it'll tell me it's worth $95 on Depop. I've resold over $600 worth of stuff in the last two months. Robely turned my hobby into a side income without changing anything I was already doing.</p>
+      <p class="quote-author">BRIE K., 22 — Austin, TX</p>
+      <p class="quote-title">College student & thrift obsessive</p>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="quote-mark" style="font-size:2.5rem;">"</div>
+      <p class="quote-text-sm">I own maybe 40 pieces total and I thought this app was for people with massive closets. But Robely's closet worth feature showed me that my 40 pieces are worth $6,200 in resale value. And the Remix feature built outfit combinations I genuinely never would have thought of. The algorithm knows my closet better than I do.</p>
+      <p class="quote-author">DEVON R., 33 — Seattle, WA</p>
+      <p class="quote-title">Software engineer</p>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="quote-mark" style="font-size:2.5rem;">"</div>
+      <p class="quote-text-sm">I've tried every styling app on the market. Nothing comes close. The Try-On Me feature alone is worth it — I can shoot content for an outfit before I even put it on. My engagement went up 23% after I started using Robely because I'm posting better looks more consistently.</p>
+      <p class="quote-author">AALIYAH W., 27 — Miami, FL</p>
+      <p class="quote-title">Content creator</p>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="quote-mark" style="font-size:2.5rem;">"</div>
+      <p class="quote-text-sm">My wife got me on this app expecting me to use it for a few clothing items. I ended up scanning my watch collection, my rare sneakers, my vintage leather jackets. The total was... more than my car. I genuinely didn't know. I've started treating this stuff the way I treat my stock portfolio — with actual attention and data.</p>
+      <p class="quote-author">TOM H., 52 — Boston, MA</p>
+      <p class="quote-title">Business owner & watch collector</p>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="quote-mark" style="font-size:2.5rem;">"</div>
+      <p class="quote-text-sm">I don't think of myself as someone who cares about clothes. But a friend showed me Robely and I scanned my stuff mostly as a joke. The app told me I had a vintage Ed Hardy piece worth $340. I paid $15 for it at a garage sale in 2021. I listed it, sold it in three days, and used the money to buy two pieces I actually wear constantly.</p>
+      <p class="quote-author">CHRIS V., 26 — Phoenix, AZ</p>
+      <p class="quote-title">Nurse</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="cta-section">
+  <p class="cta-label">— Join the beta</p>
+  <h2 class="cta-heading">Your closet is waiting<br>to be indexed.</h2>
+  <a class="cta-btn" href="beta.html">REQUEST BETA ACCESS</a>
+</div>
+
+<footer>
+  <span class="footer-logo">ROBELY</span>
+  <span class="footer-sub">Own your Closet. Every piece. Every wear. Every dollar.</span>
+  <span style="font-size:0.75rem;letter-spacing:0.12em;color:#C9A262;">LIVE BETA</span>
+</footer>
+
+</body>
+</html>
