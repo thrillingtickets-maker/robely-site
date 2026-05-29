@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robely — Own your Closet.</title>
+  <meta name="description" content="Your closet, indexed. Worth, rotation, grails — kept private, kept yours.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #14182E;
+      --cream:  #F5F0E6;
+      --gold:   #C9A262;
+      --offwht: #EDE8DC;
+      --muted:  #8B8070;
+      --slate:  #5A6070;
+      --dark:   #1A1E38;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      background: rgba(20,24,46,0.96);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-size: 1.4rem; letter-spacing: 0.18em; color: #fff;
+      text-decoration: none; font-weight: 400;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem; letter-spacing: 0.12em; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      font-size: 0.75rem; letter-spacing: 0.12em; color: var(--navy);
+      background: var(--gold); padding: 0.5rem 1.2rem;
+      text-decoration: none; transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 8rem 2.5rem 5rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-eyebrow {
+      font-size: 0.8rem; letter-spacing: 0.22em; color: var(--gold);
+      font-style: italic; margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-size: clamp(5rem, 14vw, 11rem);
+      color: #fff; letter-spacing: 0.06em;
+      line-height: 0.9; font-weight: 400;
+    }
+    .hero-sub {
+      margin-top: 1.8rem;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      color: var(--cream); font-style: italic; max-width: 600px;
+    }
+    .hero-rule {
+      width: 120px; height: 3px; background: var(--gold);
+      margin: 1.6rem 0;
+    }
+    .hero-body {
+      font-size: 0.9rem; letter-spacing: 0.08em; color: var(--muted);
+      font-style: italic;
+    }
+    .hero-badge {
+      display: inline-block; margin-top: 2.5rem;
+      background: var(--gold); color: var(--navy);
+      padding: 0.55rem 1.5rem; font-size: 0.78rem;
+      letter-spacing: 0.18em; font-weight: 500; font-style: normal;
+    }
+    /* dot grid */
+    .hero-dots {
+      position: absolute; right: 4rem; top: 50%;
+      transform: translateY(-50%);
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem;
+      opacity: 0.35;
+    }
+    .hero-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold);
+    }
+    .hero-vline {
+      position: absolute; right: calc(4rem + 4 * 1.4rem + 4 * 6px + 2rem);
+      top: 0; bottom: 0; width: 1px; background: var(--gold); opacity: 0.4;
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 7rem 2.5rem; }
+    .section-label {
+      font-size: 0.72rem; letter-spacing: 0.22em; color: var(--gold);
+      margin-bottom: 1.2rem; font-style: normal;
+    }
+    .section-title {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1.1; font-weight: 400; max-width: 700px;
+    }
+    .section-rule {
+      width: 100px; height: 3px; background: var(--gold); margin: 1.8rem 0;
+    }
+    .section-body {
+      font-size: 1.05rem; font-style: italic; color: var(--slate);
+      max-width: 660px; line-height: 1.65;
+    }
+
+    /* ── PROBLEM ── */
+    #problem { background: var(--cream); }
+    .problem-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem; margin-top: 4rem;
+    }
+    .problem-card {
+      background: var(--offwht);
+      border-top: 3px solid var(--gold);
+      padding: 2rem 1.8rem 2.2rem;
+    }
+    .problem-stat {
+      font-size: 3.8rem; color: var(--dark); line-height: 1;
+    }
+    .problem-label {
+      margin-top: 0.8rem; font-size: 1rem;
+      font-style: italic; color: var(--slate); line-height: 1.5;
+    }
+    .problem-source {
+      margin-top: 1rem; font-size: 0.72rem; letter-spacing: 0.14em;
+      color: var(--gold); font-style: normal;
+    }
+
+    /* ── PRODUCT ── */
+    #product { background: var(--navy); }
+    #product .section-title { color: #fff; }
+    #product .section-body { color: var(--muted); }
+
+    .product-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center; margin-top: 4rem;
+    }
+    @media (max-width: 860px) {
+      .product-layout { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    .product-surfaces { display: flex; flex-direction: column; gap: 2rem; }
+    .surface-item {
+      display: flex; gap: 1.2rem; align-items: flex-start;
+    }
+    .surface-vline {
+      width: 2px; background: var(--gold); flex-shrink: 0;
+      align-self: stretch; min-height: 48px;
+    }
+    .surface-n {
+      font-size: 0.7rem; letter-spacing: 0.18em; color: var(--gold);
+    }
+    .surface-title {
+      font-size: 0.85rem; letter-spacing: 0.14em; color: var(--cream);
+      margin-top: 0.15rem; font-weight: 500;
+    }
+    .surface-desc {
+      font-size: 0.95rem; font-style: italic; color: var(--muted);
+      line-height: 1.55; margin-top: 0.3rem;
+    }
+    .phone-pair {
+      display: flex; gap: 1.2rem; justify-content: center;
+    }
+    .phone-img {
+      width: 46%; max-width: 200px; border-radius: 2px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .phone-img-single {
+      width: 60%; max-width: 240px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    /* ── CLOSET INDEX ── */
+    #index { background: var(--cream); }
+    .index-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center; margin-top: 4rem;
+    }
+    @media (max-width: 860px) {
+      .index-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .index-phones { order: -1; }
+    }
+    .feature-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .feature-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .feature-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0; margin-top: 6px;
+    }
+    .feature-head {
+      font-size: 0.78rem; letter-spacing: 0.14em; color: var(--dark);
+      font-weight: 500;
+    }
+    .feature-desc {
+      font-size: 0.95rem; font-style: italic; color: var(--slate);
+      line-height: 1.55; margin-top: 0.25rem;
+    }
+    .stat-callout {
+      background: var(--navy);
+      border-top: 3px solid var(--gold);
+      padding: 1.8rem 2rem; margin-top: 2.5rem; text-align: center;
+    }
+    .stat-callout-num {
+      font-size: 3rem; color: #fff; line-height: 1;
+    }
+    .stat-callout-label {
+      font-size: 0.85rem; color: var(--gold); font-style: italic;
+      margin-top: 0.4rem;
+    }
+
+    /* ── TRYON ── */
+    #tryon { background: var(--navy); }
+    #tryon .section-title { color: #fff; }
+    #tryon .section-body { color: var(--cream); }
+    .tryon-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center; margin-top: 4rem;
+    }
+    @media (max-width: 860px) {
+      .tryon-layout { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    .bullet-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .bullet-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .bullet-dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0; margin-top: 6px;
+    }
+    .bullet-text {
+      font-size: 1rem; font-style: italic; color: var(--muted); line-height: 1.5;
+    }
+
+    /* ── VOICE + REMIX ── */
+    #voice { background: var(--cream); }
+    .voice-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center; margin-top: 4rem;
+    }
+    @media (max-width: 860px) {
+      .voice-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .voice-phones { order: -1; }
+    }
+    .divider { height: 1px; background: var(--gold); opacity: 0.4; margin: 1.8rem 0; }
+    .sub-label {
+      font-size: 0.72rem; letter-spacing: 0.2em; color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+    .chip {
+      border: 1px solid var(--gold); padding: 0.35rem 0.9rem;
+      font-size: 0.82rem; font-style: italic; color: var(--dark);
+      border-radius: 999px;
+    }
+
+    /* ── WHAT THEY WORE ── */
+    #editorial { background: var(--navy); }
+    #editorial .section-title { color: #fff; }
+    #editorial .section-body { color: var(--cream); }
+    #editorial .bullet-text { color: var(--muted); }
+    .editorial-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center; margin-top: 4rem;
+    }
+    @media (max-width: 860px) {
+      .editorial-layout { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    /* ── IRL STOREFRONT ── */
+    #storefront { background: var(--cream); }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem; margin-top: 4rem;
+    }
+    .step-card {
+      padding: 2rem 1.8rem;
+      border-top: 3px solid var(--gold);
+    }
+    .step-card:last-child {
+      background: var(--navy);
+    }
+    .step-card:last-child .step-head { color: var(--cream); }
+    .step-card:last-child .step-body { color: var(--muted); }
+    .step-n {
+      font-size: 0.7rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 1rem;
+    }
+    .step-head {
+      font-size: 1.2rem; color: var(--dark); line-height: 1.3;
+    }
+    .step-body {
+      margin-top: 0.8rem; font-size: 0.95rem; font-style: italic;
+      color: var(--slate); line-height: 1.6;
+    }
+    .storefront-footer {
+      margin-top: 3rem; text-align: center;
+      font-size: 1rem; font-style: italic; color: var(--gold);
+    }
+
+    /* ── MARKET ── */
+    #market { background: var(--navy); }
+    #market .section-title { color: #fff; }
+    #market .section-body { color: var(--muted); }
+    .market-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; margin-top: 4rem;
+    }
+    @media (max-width: 760px) {
+      .market-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .market-item {
+      padding: 2.2rem 1.5rem;
+      border-bottom: 1px solid rgba(201,162,98,0.25);
+    }
+    .market-item:nth-child(-n+3) {
+      border-bottom: 1px solid rgba(201,162,98,0.25);
+    }
+    .market-val {
+      font-size: 2.8rem; color: var(--gold); line-height: 1;
+    }
+    .market-label {
+      font-size: 0.7rem; letter-spacing: 0.16em; color: var(--cream);
+      font-weight: 500; margin-top: 0.5rem;
+    }
+    .market-sub {
+      font-size: 0.88rem; font-style: italic; color: var(--muted);
+      margin-top: 0.4rem; line-height: 1.45;
+    }
+
+    /* ── BUSINESS MODEL ── */
+    #model { background: var(--cream); }
+    .model-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; margin-top: 4rem;
+    }
+    .model-card {
+      background: var(--navy);
+      border-top: 3px solid var(--gold);
+      padding: 2rem 2rem 2.2rem;
+    }
+    .model-n {
+      font-size: 0.7rem; letter-spacing: 0.18em; color: var(--gold); margin-bottom: 0.8rem;
+    }
+    .model-name {
+      font-size: 0.8rem; letter-spacing: 0.14em; color: var(--cream);
+      font-weight: 500;
+    }
+    .model-price {
+      background: var(--gold); color: var(--navy);
+      text-align: center; padding: 0.65rem 1rem;
+      font-size: 1.1rem; font-weight: 500; margin: 1.2rem 0;
+    }
+    .model-body {
+      font-size: 0.95rem; font-style: italic; color: var(--muted);
+      line-height: 1.6;
+    }
+    .model-metric {
+      margin-top: 1.2rem; font-size: 0.72rem; letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+
+    /* ── EXIT ── */
+    #exit { background: var(--navy); }
+    #exit .section-title { color: #fff; }
+    #exit .section-body { color: var(--muted); }
+    .exit-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem; margin-top: 4rem;
+    }
+    @media (max-width: 640px) {
+      .exit-grid { grid-template-columns: 1fr; }
+    }
+    .exit-card {
+      background: #171C32;
+      border-top: 2px solid var(--gold);
+      padding: 1.6rem 1.8rem;
+    }
+    .exit-tier {
+      font-size: 0.68rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 0.5rem;
+    }
+    .exit-prob {
+      float: right; font-size: 0.72rem; letter-spacing: 0.1em;
+      color: var(--cream); font-weight: 500;
+    }
+    .exit-names {
+      font-size: 1.1rem; color: var(--cream); margin-bottom: 0.7rem; clear: both;
+    }
+    .exit-body {
+      font-size: 0.9rem; font-style: italic; color: var(--muted); line-height: 1.5;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(201,162,98,0.3);
+      padding: 3rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-logo {
+      font-size: 1.4rem; letter-spacing: 0.18em; color: #fff;
+    }
+    .footer-tagline {
+      font-size: 0.9rem; font-style: italic; color: var(--muted);
+    }
+    .footer-badge {
+      background: var(--gold); color: var(--navy);
+      padding: 0.4rem 1rem; font-size: 0.72rem; letter-spacing: 0.14em;
+    }
+
+    /* ── RESPONSIVE NAV ── */
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      nav { padding: 1rem 1.5rem; }
+      section { padding: 5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">ROBELY</a>
+  <ul class="nav-links">
+    <li><a href="#product">Product</a></li>
+    <li><a href="#tryon">Try-On</a></li>
+    <li><a href="#storefront">Storefront</a></li>
+    <li><a href="#market">Market</a></li>
+  </ul>
+  <a class="nav-cta" href="#product">LIVE BETA</a>
+</nav>
+
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-vline"></div>
+  <div class="hero-dots">
+    <div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div>
+    <div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div>
+    <div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div>
+    <div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div>
+    <div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div>
+    <div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div>
+    <div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div>
+    <div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div><div class="hero-dot"></div>
+  </div>
+  <p class="hero-eyebrow">— Style meets technology</p>
+  <h1 class="hero-title">ROBELY</h1>
+  <p class="hero-sub">Own your Closet.</p>
+  <div class="hero-rule"></div>
+  <p class="hero-body">Every piece. Every wear. Every dollar.</p>
+  <a class="hero-badge" href="#product">Beta · Live in TestFlight · 8 surfaces shipped</a>
+</section>
+
+
+<!-- PROBLEM -->
+<section id="problem">
+  <p class="section-label">§ 01 &nbsp; THE PROBLEM</p>
+  <h2 class="section-title">$1.7 trillion in clothing.<br>None of it managed.</h2>
+  <div class="section-rule"></div>
+  <p class="section-body">Clothing is the largest household asset class no one tracks. People manage their stocks, savings, crypto — but the $1.7T sitting in American closets is invisible, unvalued, and unworn.</p>
+
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-stat">82%</div>
+      <p class="problem-label">of garments worn fewer than 5× per year</p>
+      <p class="problem-source">WRAP 2024</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-stat">$0</div>
+      <p class="problem-label">financial visibility into closet value or cost-per-wear — before Robely</p>
+      <p class="problem-source">No app solves this</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-stat">74%</div>
+      <p class="problem-label">of word-of-mouth clothing recommendations happen IRL — completely untracked</p>
+      <p class="problem-source">Nielsen</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- PRODUCT — OPEN THE ARCHIVE -->
+<section id="product">
+  <p class="section-label">§ 02 &nbsp; THE PRODUCT</p>
+  <h2 class="section-title" style="color:#fff;">Open the archive.</h2>
+  <div class="section-rule"></div>
+  <p class="section-body">Your closet, indexed. Worth, rotation, grails — kept private, kept yours.</p>
+
+  <div class="product-layout">
+    <div class="product-surfaces">
+      <div class="surface-item">
+        <div class="surface-vline"></div>
+        <div>
+          <p class="surface-n">01</p>
+          <p class="surface-title">SCAN</p>
+          <p class="surface-desc">Vision AI identifies brand, category, and resale value from a single photo.</p>
+        </div>
+      </div>
+      <div class="surface-item">
+        <div class="surface-vline"></div>
+        <div>
+          <p class="surface-n">02</p>
+          <p class="surface-title">INDEX</p>
+          <p class="surface-desc">Every piece graded: GRAIL / CORE, cost-per-wear, days since last worn.</p>
+        </div>
+      </div>
+      <div class="surface-item">
+        <div class="surface-vline"></div>
+        <div>
+          <p class="surface-n">03</p>
+          <p class="surface-title">CLOSET WORTH</p>
+          <p class="surface-desc">Live resale comp engine pulls from eBay sold + Vestiaire history. Real-time.</p>
+        </div>
+      </div>
+    </div>
+    <div class="phone-pair">
+      <img class="phone-img" src="images/onboarding.jpg" alt="Robely onboarding — Open the archive">
+      <img class="phone-img" src="images/scanner.jpg" alt="Robely Closet Scanner — resale value">
+    </div>
+  </div>
+</section>
+
+
+<!-- CLOSET INDEX -->
+<section id="index">
+  <p class="section-label">§ 03 &nbsp; CLOSET INDEX</p>
+  <h2 class="section-title">Every piece.<br>Classified.</h2>
+  <div class="section-rule"></div>
+  <p class="section-body">The first financial ledger for your wardrobe. Every item gets a resale value, a wear count, a cost-per-wear, and a GRAIL / CORE classification.</p>
+
+  <div class="index-layout">
+    <div>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-dot"></div>
+          <div>
+            <p class="feature-head">GRAIL / CORE</p>
+            <p class="feature-desc">Investment pieces flagged from basics. Resale comps pulled live from eBay sold + Vestiaire.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-dot"></div>
+          <div>
+            <p class="feature-head">UNDERPLAYED · HIGH VALUE · DEADSTOCK</p>
+            <p class="feature-desc">Smart filters surface dead capital — pieces with high resale value you haven't touched in months.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-dot"></div>
+          <div>
+            <p class="feature-head">PER-PIECE LEDGER</p>
+            <p class="feature-desc">Wears × CPW × days since last worn. Closet Worth updates in real time as market moves.</p>
+          </div>
+        </div>
+      </div>
+      <div class="stat-callout">
+        <div class="stat-callout-num">$13,267</div>
+        <p class="stat-callout-label">average closet worth — before coffee</p>
+      </div>
+    </div>
+    <div class="index-phones phone-pair">
+      <img class="phone-img" src="images/closet-index.jpg" alt="Robely Closet Index">
+      <img class="phone-img" src="images/closet-worth.jpg" alt="Robely Closet Worth $13,267">
+    </div>
+  </div>
+</section>
+
+
+<!-- TRY-ON ME -->
+<section id="tryon">
+  <p class="section-label">§ 04 &nbsp; TRY-ON ME</p>
+  <h2 class="section-title">Composed onto<br>your own photo.</h2>
+  <div class="section-rule"></div>
+  <p class="section-body">No competitor ships native AI try-on on the user's own body. Whering, Indyx, Acloset — all use stock figures or omit it entirely.</p>
+
+  <div class="tryon-layout">
+    <div>
+      <div class="bullet-list">
+        <div class="bullet-item"><div class="bullet-dot"></div><p class="bullet-text">Select pieces from your index — any category</p></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><p class="bullet-text">Upload your own photo or use a default model</p></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><p class="bullet-text">AI generates a realistic visualization in seconds</p></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><p class="bullet-text">Shareable output — TikTok-native viral mechanic</p></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><p class="bullet-text">SWAP + NEW TAKE refines without re-selecting</p></div>
+      </div>
+    </div>
+    <div class="phone-pair">
+      <img class="phone-img" src="images/tryon-select.jpg" alt="Try-On Me — select pieces">
+      <img class="phone-img" src="images/tryon-result.jpg" alt="Try-On Me — result">
+    </div>
+  </div>
+</section>
+
+
+<!-- VOICE + REMIX -->
+<section id="voice">
+  <p class="section-label">§ 05 &nbsp; VOICE &amp; REMIX</p>
+  <h2 class="section-title">Talk to your stylist.<br>Anchor the look.</h2>
+  <div class="section-rule"></div>
+
+  <div class="voice-layout">
+    <div>
+      <p class="sub-label">VOICE STYLIST</p>
+      <p class="section-body">Natural language in, curated looks out. Say "Dinner tonight, cozy but cute" — get three outfits from your own closet, ranked by fit.</p>
+      <div class="chip-row">
+        <span class="chip">Dinner tonight, cozy but cute</span>
+        <span class="chip">Class fit — comfortable, neutral</span>
+        <span class="chip">Something I haven't worn in a while</span>
+        <span class="chip">Rainy day, no dresses</span>
+      </div>
+      <div class="divider" style="margin-top:2rem;"></div>
+      <p class="sub-label">REMIX</p>
+      <p class="section-body" style="margin-top:0;">Pick one anchor piece — the Levi's 501, the Balmain sweat, the Gucci sneaker — and the system builds full outfits around it. CLASS, DINNER, WEEKEND variations ready to wear.</p>
+    </div>
+    <div class="voice-phones phone-pair">
+      <img class="phone-img" src="images/voice.jpg" alt="Voice Stylist">
+      <img class="phone-img" src="images/remix.jpg" alt="Remix — The edit">
+    </div>
+  </div>
+</section>
+
+
+<!-- WHAT THEY WORE -->
+<section id="editorial">
+  <p class="section-label">§ 06 &nbsp; WHAT THEY WORE</p>
+  <h2 class="section-title">Today on the carpet,<br>the runway, the street.</h2>
+  <div class="section-rule"></div>
+  <p class="section-body">A daily editorial feed — red carpet, runway, street style — that ties directly back to your closet. Inspiration becomes an outfit, not a wish list.</p>
+
+  <div class="editorial-layout">
+    <div>
+      <div class="bullet-list">
+        <div class="bullet-item"><div class="bullet-dot"></div><p class="bullet-text">RED CARPET · RUNWAY · STREET — daily curation</p></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><p class="bullet-text">Each look tagged by occasion, thread, and vibe</p></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><p class="bullet-text">"Build a similar fit from MY closet" button</p></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><p class="bullet-text">SHOP SIMILAR pulls Google Shopping matches</p></div>
+        <div class="bullet-item"><div class="bullet-dot"></div><p class="bullet-text">TODAY'S EDIT: three concrete moves every morning</p></div>
+      </div>
+    </div>
+    <div class="phone-pair">
+      <img class="phone-img" src="images/home.jpg" alt="Robely Home — Today's Edit">
+      <img class="phone-img" src="images/what-they-wore.jpg" alt="What They Wore — detail">
+    </div>
+  </div>
+</section>
+
+
+<!-- IRL STOREFRONT -->
+<section id="storefront">
+  <p class="section-label">§ 07 &nbsp; THE STOREFRONT — COMING NEXT</p>
+  <h2 class="section-title">Your wardrobe earns money<br>while you wear it.</h2>
+  <div class="section-rule"></div>
+  <p class="section-body">Like Amazon's influencer storefronts — but for real people, triggered by the receipt already in your hand. Every Robely user becomes a micro-storefront.</p>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <p class="step-n">01</p>
+      <h3 class="step-head">Buy in-store</h3>
+      <p class="step-body">Receipt prints with a QR code linked to your Robely profile. No new hardware. Works with any POS.</p>
+    </div>
+    <div class="step-card">
+      <p class="step-n">02</p>
+      <h3 class="step-head">"Where did you get that?"</h3>
+      <p class="step-body">You show the receipt. They scan the QR. Lands on your live Robely closet storefront.</p>
+    </div>
+    <div class="step-card">
+      <p class="step-n">03</p>
+      <h3 class="step-head">They browse &amp; buy</h3>
+      <p class="step-body">They see the exact item — click to buy from the brand. Attribution fires instantly.</p>
+    </div>
+    <div class="step-card">
+      <p class="step-n">04</p>
+      <h3 class="step-head">You earn</h3>
+      <p class="step-body">2–8% affiliate commission auto-credited to your Robely account. Every wear is now a revenue event.</p>
+    </div>
+  </div>
+  <p class="storefront-footer">The incentive to digitize your closet: every piece you scan is a potential commission.</p>
+</section>
+
+
+<!-- MARKET -->
+<section id="market">
+  <p class="section-label">§ 08 &nbsp; MARKET</p>
+  <h2 class="section-title">A category growing into us.</h2>
+  <div class="section-rule"></div>
+  <p class="section-body">Clothing-as-asset behavior, AI-enabled experience, and resale growing 3× faster than retail.</p>
+
+  <div class="market-grid">
+    <div class="market-item">
+      <div class="market-val">$1.7T</div>
+      <p class="market-label">U.S. CONSUMER CLOTHING INVENTORY</p>
+      <p class="market-sub">Largest household asset class no one tracks</p>
+    </div>
+    <div class="market-item">
+      <div class="market-val">$420B</div>
+      <p class="market-label">U.S. ANNUAL APPAREL TRANSACTIONS</p>
+      <p class="market-sub">Replacement cycle accelerating with social commerce</p>
+    </div>
+    <div class="market-item">
+      <div class="market-val">$73B</div>
+      <p class="market-label">U.S. RESALE MARKET BY 2027</p>
+      <p class="market-sub">From $24B in 2018 · 3.0× growth · ThredUP</p>
+    </div>
+    <div class="market-item">
+      <div class="market-val">$230B</div>
+      <p class="market-label">GLOBAL RESALE BY 2030</p>
+      <p class="market-sub">Growing 3× faster than retail apparel worldwide</p>
+    </div>
+    <div class="market-item">
+      <div class="market-val">82%</div>
+      <p class="market-label">GARMENTS WORN &lt;5× PER YEAR</p>
+      <p class="market-sub">Source: WRAP 2024 wardrobe utilization study</p>
+    </div>
+    <div class="market-item">
+      <div class="market-val">+340%</div>
+      <p class="market-label">WARDROBE-AS-PORTFOLIO SEARCHES</p>
+      <p class="market-sub">Google Trends, 2023→2024, U.S.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- BUSINESS MODEL -->
+<section id="model">
+  <p class="section-label">§ 09 &nbsp; BUSINESS MODEL</p>
+  <h2 class="section-title">Three compounding<br>revenue streams.</h2>
+  <div class="section-rule"></div>
+
+  <div class="model-grid">
+    <div class="model-card">
+      <p class="model-n">01</p>
+      <p class="model-name">PREMIUM SUBSCRIPTION</p>
+      <div class="model-price">$8.99 / mo</div>
+      <p class="model-body">The Full Edit — Sell Signals, Travel Pack, Morning Fit, advanced styling, insurance FMV export. Power users who treat their closet as an asset.</p>
+      <p class="model-metric">Target: 15% MAU conversion</p>
+    </div>
+    <div class="model-card">
+      <p class="model-n">02</p>
+      <p class="model-name">RESALE TAKE RATE</p>
+      <div class="model-price">8% per transaction</div>
+      <p class="model-body">When Sell Signals fire and users list on eBay or Vestiaire through Robely, we take 8% of the sale. eBay + Vestiaire partner integrations in next sprint.</p>
+      <p class="model-metric">Opens Days 31–60 on roadmap</p>
+    </div>
+    <div class="model-card">
+      <p class="model-n">03</p>
+      <p class="model-name">IRL AFFILIATE COMMISSION</p>
+      <div class="model-price">2–8% per referral sale</div>
+      <p class="model-body">Storefront QR on every receipt. Friend scans → lands on your Robely closet → buys the item → you earn. Brands pay on conversion only.</p>
+      <p class="model-metric">New revenue line — no analog exists</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- EXIT PATHS -->
+<section id="exit">
+  <p class="section-label">§ 10 &nbsp; EXIT PATHS</p>
+  <h2 class="section-title">Twelve strategic acquirers.<br>Four most-likely buyers.</h2>
+  <div class="section-rule"></div>
+  <p class="section-body">Each has done a comparable deal in the last 36 months. Reference range: $500M–$3B exits, 4–7 years post-Seed.</p>
+
+  <div class="exit-grid">
+    <div class="exit-card">
+      <p class="exit-tier">TIER 1 · RESALE INCUMBENTS <span class="exit-prob">PROB HIGH</span></p>
+      <p class="exit-names">LVMH · Etsy · Naver</p>
+      <p class="exit-body">Closet Worth + their resale infra = vertical integration. Vestiaire precedent ($1.7B val.). We feed their pipeline with valued, ready-to-list pieces.</p>
+    </div>
+    <div class="exit-card">
+      <p class="exit-tier">TIER 2 · PLATFORM GIANTS <span class="exit-prob">PROB HIGH</span></p>
+      <p class="exit-names">Meta · Pinterest · TikTok</p>
+      <p class="exit-body">Fashion is IG's largest commerce vertical. Try-On Me + Storefront converts directly to IG-native UGC. They've been building AI try-on for 3 years without shipping.</p>
+    </div>
+    <div class="exit-card">
+      <p class="exit-tier">TIER 3 · LUXURY GROUPS <span class="exit-prob">MED–HIGH</span></p>
+      <p class="exit-names">Kering · Richemont · Tapestry</p>
+      <p class="exit-body">Lock-in the closet, lock-in the customer. Drive replacement + repurchase data. Customer lifetime value play at scale.</p>
+    </div>
+    <div class="exit-card">
+      <p class="exit-tier">TIER 4 · FINANCIAL APPS <span class="exit-prob">MED</span></p>
+      <p class="exit-names">Intuit · Block · Klarna</p>
+      <p class="exit-body">The Mint precedent. Intuit paid $170M for Mint in 2009. Wardrobe is the largest unmanaged consumer asset class.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ROBELY</div>
+  <p class="footer-tagline">Own your Closet. Every piece. Every wear. Every dollar.</p>
+  <span class="footer-badge">LIVE BETA</span>
+</footer>
+
+</body>
+</html>
