@@ -154,7 +154,7 @@
 
     .product-layout {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; align-items: center; margin-top: 4rem;
+      gap: 4rem; align-items: stretch; margin-top: 4rem;
     }
     @media (max-width: 860px) {
       .product-layout { grid-template-columns: 1fr; gap: 3rem; }
@@ -179,22 +179,24 @@
       line-height: 1.55; margin-top: 0.3rem;
     }
     .phone-pair {
-      display: flex; gap: 1.2rem; justify-content: center;
+      display: flex; gap: 1.2rem; justify-content: center; align-items: stretch;
     }
     .phone-img {
-      width: 46%; max-width: 200px; border-radius: 2px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      width: 48%; object-fit: cover; border-radius: 2px;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.45);
+      min-height: 400px;
     }
     .phone-img-single {
-      width: 60%; max-width: 240px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      width: 70%;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.45);
+      object-fit: cover; min-height: 400px;
     }
 
     /* ── CLOSET INDEX ── */
     #index { background: var(--cream); }
     .index-layout {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; align-items: center; margin-top: 4rem;
+      gap: 4rem; align-items: stretch; margin-top: 4rem;
     }
     @media (max-width: 860px) {
       .index-layout { grid-template-columns: 1fr; gap: 3rem; }
@@ -233,7 +235,7 @@
     #tryon .section-body { color: var(--cream); }
     .tryon-layout {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; align-items: center; margin-top: 4rem;
+      gap: 4rem; align-items: stretch; margin-top: 4rem;
     }
     @media (max-width: 860px) {
       .tryon-layout { grid-template-columns: 1fr; gap: 3rem; }
@@ -252,7 +254,7 @@
     #voice { background: var(--cream); }
     .voice-layout {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; align-items: center; margin-top: 4rem;
+      gap: 4rem; align-items: stretch; margin-top: 4rem;
     }
     @media (max-width: 860px) {
       .voice-layout { grid-template-columns: 1fr; gap: 3rem; }
@@ -277,7 +279,7 @@
     #editorial .bullet-text { color: var(--muted); }
     .editorial-layout {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 5rem; align-items: center; margin-top: 4rem;
+      gap: 4rem; align-items: stretch; margin-top: 4rem;
     }
     @media (max-width: 860px) {
       .editorial-layout { grid-template-columns: 1fr; gap: 3rem; }
@@ -442,8 +444,10 @@
     <li><a href="#tryon">Try-On</a></li>
     <li><a href="#storefront">Storefront</a></li>
     <li><a href="#market">Market</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="coverage.html">Coverage</a></li>
   </ul>
-  <a class="nav-cta" href="#product">LIVE BETA</a>
+  <a class="nav-cta" href="beta.html">JOIN BETA</a>
 </nav>
 
 
