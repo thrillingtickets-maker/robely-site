@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Robely</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #14182E; --cream: #F5F0E6; --gold: #C9A262;
+      --offwht: #EDE8DC; --muted: #8B8070; --slate: #5A6070; --dark: #1A1E38;
+    }
+    body { font-family: 'EB Garamond', Georgia, serif; background: var(--cream); color: var(--dark); }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2.5rem; background: rgba(20,24,46,0.96); backdrop-filter: blur(12px);
+    }
+    .nav-logo { font-size: 1.4rem; letter-spacing: 0.18em; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.78rem; letter-spacing: 0.12em; color: #8B8070; text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--navy); background: var(--gold); padding: 0.5rem 1.2rem; text-decoration: none; }
+
+    .page-hero {
+      background: var(--navy); padding: 10rem 2.5rem 6rem;
+    }
+    .eyebrow { font-size: 0.8rem; letter-spacing: 0.22em; color: var(--gold); font-style: italic; margin-bottom: 1rem; }
+    h1 { font-size: clamp(3rem, 7vw, 6rem); color: #fff; font-weight: 400; line-height: 1; }
+    .rule { width: 100px; height: 3px; background: var(--gold); margin: 2rem 0; }
+    .hero-sub { font-size: 1.2rem; font-style: italic; color: var(--muted); max-width: 560px; line-height: 1.6; }
+
+    .section { padding: 6rem 2.5rem; max-width: 900px; margin: 0 auto; }
+    .section-label { font-size: 0.72rem; letter-spacing: 0.22em; color: var(--gold); margin-bottom: 1.2rem; }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; line-height: 1.15; margin-bottom: 1.5rem; }
+    p { font-size: 1.1rem; font-style: italic; color: var(--slate); line-height: 1.75; margin-bottom: 1.2rem; }
+
+    .mission-block {
+      background: var(--navy); border-top: 3px solid var(--gold);
+      padding: 3rem; margin: 4rem 0;
+    }
+    .mission-block h3 { font-size: 1rem; letter-spacing: 0.14em; color: var(--gold); margin-bottom: 1rem; }
+    .mission-block p { color: var(--muted); font-size: 1.15rem; }
+
+    .values-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .value-card {
+      border-top: 2px solid var(--gold); padding: 1.8rem 1.5rem; background: var(--offwht);
+    }
+    .value-title { font-size: 0.8rem; letter-spacing: 0.16em; color: var(--dark); font-weight: 500; margin-bottom: 0.6rem; font-style: normal; }
+    .value-desc { font-size: 1rem; font-style: italic; color: var(--slate); line-height: 1.6; }
+
+    footer {
+      background: var(--navy); border-top: 1px solid rgba(201,162,98,0.3);
+      padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-size: 1.2rem; letter-spacing: 0.18em; color: #fff; }
+    .footer-sub { font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      nav { padding: 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">ROBELY</a>
+  <ul class="nav-links">
+    <li><a href="index.html#product">Product</a></li>
+    <li><a href="index.html#tryon">Try-On</a></li>
+    <li><a href="index.html#storefront">Storefront</a></li>
+    <li><a href="coverage.html">Coverage</a></li>
+    <li><a href="about.html" style="color:#C9A262;">About</a></li>
+  </ul>
+  <a class="nav-cta" href="beta.html">JOIN BETA</a>
+</nav>
+
+<div class="page-hero">
+  <p class="eyebrow">— Who we are</p>
+  <h1>About<br>Robely.</h1>
+  <div class="rule"></div>
+  <p class="hero-sub">We believe your closet is an asset. We built the infrastructure to prove it.</p>
+</div>
+
+<div class="section">
+  <p class="section-label">§ 01 &nbsp; THE ORIGIN</p>
+  <h2>Built from a real problem.</h2>
+  <p>Robely started with a simple observation: people manage their investment portfolios, their savings, their crypto — but no one tracks the $1.7 trillion in clothing sitting in American closets. Unworn, unvalued, forgotten.</p>
+  <p>We set out to build the infrastructure that makes every piece of clothing visible — its resale value, its wear history, its cost-per-wear. Not for brands. Not for retailers. For the people who own the clothes.</p>
+
+  <div class="mission-block">
+    <h3>OUR MISSION</h3>
+    <p>To give every person complete visibility, control, and earning potential over what they already own.</p>
+  </div>
+
+  <p class="section-label">§ 02 &nbsp; THE PRODUCT</p>
+  <h2>Eight surfaces. One archive.</h2>
+  <p>Robely is a fully functional beta app — live in TestFlight today — with eight surfaces: Scan, Index, Remix, Voice Stylist, Try-On Me, Edit, What They Wore, and Profile. Each surface solves a distinct problem in the relationship between people and their clothing.</p>
+  <p>The IRL Storefront — our next major surface — turns every receipt into a revenue event. When someone asks "where did you get that?", your closet earns.</p>
+
+  <div class="values-grid">
+    <div class="value-card">
+      <p class="value-title">PRIVACY FIRST</p>
+      <p class="value-desc">Your closet data is yours. We don't sell it, share it, or monetize it without your explicit action.</p>
+    </div>
+    <div class="value-card">
+      <p class="value-title">REAL VALUE</p>
+      <p class="value-desc">Every feature earns its place by giving you something tangible — a number, a commission, an outfit.</p>
+    </div>
+    <div class="value-card">
+      <p class="value-title">EDITORIAL QUALITY</p>
+      <p class="value-desc">We treat fashion with the same rigor and aesthetic care that finance treats capital markets.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-logo">ROBELY</span>
+  <span class="footer-sub">Own your Closet. Every piece. Every wear. Every dollar.</span>
+  <span style="font-size:0.75rem;letter-spacing:0.12em;color:#C9A262;">LIVE BETA</span>
+</footer>
+
+</body>
+</html>
