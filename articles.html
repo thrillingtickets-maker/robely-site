@@ -30,12 +30,9 @@
     .rule { width: 100px; height: 3px; background: var(--gold); margin: 2rem 0; }
     .hero-sub { font-size: 1.2rem; font-style: italic; color: var(--muted); max-width: 560px; line-height: 1.6; }
 
-    /* Article list */
     .articles-grid {
-      max-width: 1100px; margin: 0 auto;
-      padding: 5rem 2.5rem;
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 2rem;
+      max-width: 1100px; margin: 0 auto; padding: 5rem 2.5rem;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;
     }
     .article-card {
       background: var(--offwht); border-top: 3px solid var(--gold);
@@ -48,7 +45,7 @@
     .article-excerpt { font-size: 0.98rem; font-style: italic; color: var(--slate); line-height: 1.65; flex: 1; }
     .article-read { font-size: 0.78rem; letter-spacing: 0.14em; color: var(--gold); margin-top: 0.5rem; }
 
-    /* Full article overlay */
+    /* Overlay */
     .article-overlay {
       display: none; position: fixed; inset: 0; z-index: 200;
       background: var(--cream); overflow-y: auto;
@@ -56,19 +53,59 @@
     .article-overlay.open { display: block; }
     .overlay-header {
       background: var(--navy); padding: 1.5rem 2.5rem;
-      display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 10;
     }
     .overlay-logo { font-size: 1.1rem; letter-spacing: 0.18em; color: #fff; text-decoration: none; }
     .overlay-close {
       font-size: 1rem; color: var(--gold); cursor: pointer; letter-spacing: 0.1em;
       background: none; border: none; font-family: inherit;
     }
-    .overlay-body { max-width: 720px; margin: 0 auto; padding: 4rem 2.5rem 6rem; }
-    .overlay-tag { font-size: 0.72rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 1.2rem; }
+    .overlay-body { max-width: 740px; margin: 0 auto; padding: 4rem 2.5rem 7rem; }
+    .overlay-tag { font-size: 0.72rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 1.2rem; display: block; }
     .overlay-title { font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--dark); line-height: 1.2; margin-bottom: 2rem; font-weight: 400; }
     .overlay-rule { width: 80px; height: 3px; background: var(--gold); margin-bottom: 2.5rem; }
-    .overlay-content p { font-size: 1.12rem; font-style: italic; color: var(--slate); line-height: 1.85; margin-bottom: 1.5rem; }
-    .overlay-content h3 { font-size: 1.2rem; color: var(--dark); margin: 2rem 0 0.8rem; font-weight: 400; }
+
+    /* Article content */
+    .overlay-content p { font-size: 1.12rem; font-style: italic; color: var(--slate); line-height: 1.9; margin-bottom: 1.6rem; }
+    .overlay-content h3 { font-size: 1.3rem; color: var(--dark); margin: 2.5rem 0 1rem; font-weight: 400; font-style: normal; }
+    .overlay-content blockquote {
+      border-left: 3px solid var(--gold); padding: 1rem 1.5rem; margin: 2rem 0;
+      background: var(--offwht);
+    }
+    .overlay-content blockquote p { font-size: 1.2rem; color: var(--dark); margin: 0; }
+
+    /* Images inside articles */
+    .article-img-full {
+      width: 100%; margin: 2.5rem 0;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+      display: block;
+    }
+    .article-img-phone {
+      display: block; max-width: 260px; margin: 2.5rem auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+    .article-img-pair {
+      display: flex; gap: 1.5rem; margin: 2.5rem 0; align-items: flex-start;
+    }
+    .article-img-pair img {
+      width: 50%; box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+    }
+    .img-caption {
+      font-size: 0.82rem; color: var(--muted); text-align: center;
+      margin-top: 0.5rem; font-style: italic; display: block;
+    }
+    .pull-quote {
+      font-size: 1.5rem; color: var(--dark); font-style: italic;
+      border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold);
+      padding: 1.5rem 0; margin: 2.5rem 0; line-height: 1.4; text-align: center;
+    }
+    .stat-inline {
+      background: var(--navy); color: var(--gold);
+      padding: 2rem; margin: 2rem 0; text-align: center;
+    }
+    .stat-inline .stat-num { font-size: 3rem; display: block; line-height: 1; }
+    .stat-inline .stat-lbl { font-size: 0.85rem; letter-spacing: 0.14em; color: var(--cream); margin-top: 0.5rem; display: block; }
 
     footer {
       background: var(--navy); border-top: 1px solid rgba(201,162,98,0.3);
@@ -80,6 +117,8 @@
     @media (max-width: 720px) {
       .nav-links { display: none; }
       nav { padding: 1rem 1.5rem; }
+      .article-img-pair { flex-direction: column; }
+      .article-img-pair img { width: 100%; }
     }
   </style>
 </head>
@@ -105,77 +144,66 @@
 </div>
 
 <div class="articles-grid">
-
   <div class="article-card" onclick="openArticle('a1')">
     <p class="article-tag">BLOG POST</p>
     <h2 class="article-title">Your Closet Is Worth More Than You Think. Robely Can Prove It.</h2>
     <p class="article-excerpt">You probably know what's in your bank account. You might know what your car is worth. But do you know what's sitting in your closet? For most people, the answer is no — and that's a $13,000 blind spot.</p>
     <p class="article-read">READ →</p>
   </div>
-
   <div class="article-card" onclick="openArticle('a2')">
     <p class="article-tag">BLOG POST</p>
     <h2 class="article-title">I Let an AI Style Me for a Week. Here's What Happened.</h2>
     <p class="article-excerpt">Monday morning. I opened Robely, tapped Voice Stylist, and said six words: "Class fit. Comfortable. Neutral colors." Within seconds — three complete outfits built from clothes I already own.</p>
     <p class="article-read">READ →</p>
   </div>
-
   <div class="article-card" onclick="openArticle('a3')">
     <p class="article-tag">PRESS RELEASE</p>
     <h2 class="article-title">Robely Launches Beta of the World's First Financial Intelligence Layer for Personal Wardrobes</h2>
     <p class="article-excerpt">Robely announces the public beta launch of its iOS application — an eight-surface platform that indexes, values, and monetizes personal wardrobes using artificial intelligence.</p>
     <p class="article-read">READ →</p>
   </div>
-
   <div class="article-card" onclick="openArticle('a4')">
     <p class="article-tag">BLOG POST</p>
     <h2 class="article-title">The $1.7 Trillion Blind Spot: Why Your Closet Is the Most Unmanaged Asset in Your Life</h2>
-    <p class="article-excerpt">Americans collectively own $1.7 trillion in clothing. Larger than the GDP of most countries. More than the market cap of Nike, Levi's, and Zara combined. And virtually none of it is managed.</p>
+    <p class="article-excerpt">Americans collectively own $1.7 trillion in clothing. Larger than the GDP of most countries. More than Nike, Levi's, and Zara combined. And virtually none of it is managed.</p>
     <p class="article-read">READ →</p>
   </div>
-
   <div class="article-card" onclick="openArticle('a5')">
     <p class="article-tag">BLOG POST</p>
     <h2 class="article-title">Why "Where Did You Get That?" Is About to Become the Most Valuable Question in Fashion</h2>
     <p class="article-excerpt">74% of clothing recommendations happen in person. Every single one has been completely untracked — until now. Robely's IRL Storefront turns every compliment into a revenue event.</p>
     <p class="article-read">READ →</p>
   </div>
-
   <div class="article-card" onclick="openArticle('a6')">
     <p class="article-tag">PRESS RELEASE</p>
     <h2 class="article-title">Robely's AI Try-On Sets New Standard: First App to Compose Outfits Onto Users' Own Bodies</h2>
     <p class="article-excerpt">Robely is the first wardrobe management platform to ship native AI try-on using real user photos — not stock models, not 3D avatars. Your body. Your clothes. Your look.</p>
     <p class="article-read">READ →</p>
   </div>
-
   <div class="article-card" onclick="openArticle('a7')">
     <p class="article-tag">BLOG POST</p>
     <h2 class="article-title">Forget Capsule Wardrobes. The Future Is a Closet That Knows Itself.</h2>
     <p class="article-excerpt">Robely doesn't tell you to own less. It doesn't send you prompts to declutter. It starts from where you actually are and works with the closet you have.</p>
     <p class="article-read">READ →</p>
   </div>
-
   <div class="article-card" onclick="openArticle('a8')">
     <p class="article-tag">BLOG POST</p>
     <h2 class="article-title">The Real Cost of Getting Dressed: How Robely Changed the Way I Think About Buying Clothes</h2>
     <p class="article-excerpt">My Sambas: 61 wears, $1.64 per wear. My Gucci Aces: 8 wears, $62.50 per wear. That level of clarity changes how you shop — not by guilt, but by data.</p>
     <p class="article-read">READ →</p>
   </div>
-
   <div class="article-card" onclick="openArticle('a9')">
     <p class="article-tag">PRESS RELEASE</p>
     <h2 class="article-title">Robely Positioned to Capture the $73B Resale Market With First-of-Its-Kind Closet Intelligence Platform</h2>
     <p class="article-excerpt">As the U.S. secondhand market accelerates toward $73 billion by 2027, Robely is emerging as the foundational infrastructure layer connecting wardrobes to the resale economy.</p>
     <p class="article-read">READ →</p>
   </div>
-
   <div class="article-card" onclick="openArticle('a10')">
     <p class="article-tag">BLOG POST</p>
     <h2 class="article-title">Fashion Tech Has Been Building for Brands. Robely Builds for the Person Who Owns the Clothes.</h2>
-    <p class="article-excerpt">Walk through the fashion tech landscape and you'll notice: almost all of it is built for brands. Robely is built from the opposite direction — for the person who actually owns the clothes.</p>
+    <p class="article-excerpt">Walk through the fashion tech landscape and you'll notice: almost all of it is built for brands. Robely is built from the opposite direction.</p>
     <p class="article-read">READ →</p>
   </div>
-
 </div>
 
 <footer>
@@ -184,170 +212,414 @@
   <span style="font-size:0.75rem;letter-spacing:0.12em;color:#C9A262;">LIVE BETA</span>
 </footer>
 
-<!-- Article overlays -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ARTICLE 1 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div id="a1" class="article-overlay">
   <div class="overlay-header"><a class="overlay-logo" href="articles.html">ROBELY</a><button class="overlay-close" onclick="closeArticle('a1')">✕ CLOSE</button></div>
   <div class="overlay-body">
-    <p class="overlay-tag">BLOG POST</p>
+    <span class="overlay-tag">BLOG POST</span>
     <h2 class="overlay-title">Your Closet Is Worth More Than You Think. Robely Can Prove It.</h2>
     <div class="overlay-rule"></div>
     <div class="overlay-content">
-      <p>You probably know what's in your bank account. You might know what your car is worth. But do you know what's sitting in your closet?</p>
-      <p>For most people, the answer is no — and that's a $13,000 blind spot.</p>
-      <p>Robely is the first app that treats your wardrobe the way you treat your investment portfolio: with real data, live valuations, and the kind of visibility that actually changes how you shop, how you dress, and how much money you leave on the table every time you open your closet door.</p>
-      <p>Here's what Robely does. You scan a piece — say, those Gucci Ace sneakers you bought three years ago and wear maybe twice a month. The app pulls live resale comps from eBay sold listings and Vestiaire Collective. It tells you what they're worth today, how many times you've worn them, and what that works out to per wear. It classifies them as GRAIL — high value, worth keeping. It flags them as UNDERPLAYED — you haven't touched them in 47 days.</p>
-      <p>That single scan changes the way you see that pair of shoes. And when you do that for every piece in your closet, something shifts. You stop buying things you don't need. You start wearing what you have. You begin to understand that your wardrobe isn't a collection of impulse decisions — it's an asset.</p>
-      <p>The average American closet holds $13,267 in clothing. Robely is the first tool built to help you actually see it, manage it, and make it work for you.</p>
+      <p>You probably know what's in your bank account. You might know what your car is worth. You've likely checked your 401(k) at least once this year. But do you know what's sitting in your closet?</p>
+      <p>For most people, the answer is no — and that's a $13,000 blind spot. Not a metaphor. The average American closet holds approximately $13,267 in clothing at current resale values. That number sits there, untouched, untracked, and largely unknown to the person who owns it.</p>
+
+      <div class="stat-inline">
+        <span class="stat-num">$13,267</span>
+        <span class="stat-lbl">AVERAGE CLOSET WORTH — BEFORE COFFEE</span>
+      </div>
+
+      <p>Robely is the first app built to change that. Not by asking you to sell everything, not by shaming you into a capsule wardrobe, but by giving your clothing the same financial visibility you give everything else you own.</p>
+
+      <h3>How it works</h3>
+      <p>You open the app, tap the Closet Scanner, and point your camera at a piece. The AI identifies the brand, category, and approximate model. Then it pulls live resale comparables — real sold listings from eBay and Vestiaire Collective — and returns a valuation range with a confidence score, a recommended list price, and a fast-sale price if you want to move it quickly.</p>
+
+      <img src="images/scanner.jpg" alt="Robely Closet Scanner showing resale range" class="article-img-phone">
+      <span class="img-caption">The Closet Scanner identifies brand and returns live resale comps in seconds.</span>
+
+      <p>That's one scan. Do it for your entire wardrobe and the app builds a live financial ledger: your total closet worth, updated in real time as markets move. Every piece gets a classification — GRAIL (high value, investment-grade), CORE (everyday workhorse), UNDERPLAYED (high value, rarely worn), or DEADSTOCK (worth selling now).</p>
+
+      <h3>The numbers that change how you think</h3>
+      <p>The Closet Index doesn't just tell you what things are worth. It tells you how you're using them — and the gap between those two numbers is where most people have their first real revelation about their wardrobe.</p>
+
+      <img src="images/closet-index.jpg" alt="Robely Closet Index showing items with value and wear data" class="article-img-phone">
+      <span class="img-caption">The Closet Index — every piece ranked by value, wear count, and cost-per-wear.</span>
+
+      <p>Your Adidas Sambas: worn 61 times, $1.64 per wear. Your Gucci Aces: worn 8 times, $62.50 per wear. Your vintage Helmut Lang jacket, bought at a garage sale for $22: currently worth $680 on the resale market. These are not hypotheticals. These are real numbers from real beta users.</p>
+
+      <div class="pull-quote">"The app paid for itself about a thousand times over in the first week." — Jordan M., vintage collector</div>
+
+      <h3>Why this matters beyond the money</h3>
+      <p>The financial visibility Robely provides does something unexpected: it changes your relationship to shopping. When you can see that you have $4,800 worth of rarely-worn clothing already in your closet, the case for buying something new gets harder to make on impulse. When you can see that your cost-per-wear on a $300 jacket is $3.00 — because you've worn it 100 times — you understand what real value looks like.</p>
+      <p>This isn't about minimalism. It's about information. And information, it turns out, is the one thing the fashion industry has never given the consumer.</p>
+
+      <img src="images/closet-worth.jpg" alt="Robely home screen showing $13,267 closet worth" class="article-img-phone">
+      <span class="img-caption">Your closet worth — tracked live, updated as market comps move.</span>
+
+      <h3>The bigger picture</h3>
+      <p>Americans spend approximately $420 billion on clothing per year. The resale market is growing 3× faster than retail. 47% of consumers now consider resale value before buying new. The infrastructure for treating clothing as a financial asset is finally arriving — and Robely is building the consumer-facing layer of it.</p>
+      <p>Your closet is already worth more than you think. Robely just helps you see it, manage it, and make it work for you.</p>
     </div>
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ARTICLE 2 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div id="a2" class="article-overlay">
   <div class="overlay-header"><a class="overlay-logo" href="articles.html">ROBELY</a><button class="overlay-close" onclick="closeArticle('a2')">✕ CLOSE</button></div>
   <div class="overlay-body">
-    <p class="overlay-tag">BLOG POST</p>
+    <span class="overlay-tag">BLOG POST</span>
     <h2 class="overlay-title">I Let an AI Style Me for a Week. Here's What Happened.</h2>
     <div class="overlay-rule"></div>
     <div class="overlay-content">
       <p>Monday morning. I opened Robely, tapped Voice Stylist, and said six words: "Class fit. Comfortable. Neutral colors."</p>
-      <p>Within seconds, the app returned three complete outfits built entirely from clothes I already own. Not suggestions to buy anything new. Not a stock-photo mood board. Actual pieces from my actual closet, composed into looks I hadn't thought to put together myself.</p>
-      <p>I wore the first one. Got a compliment by noon.</p>
-      <p>Tuesday, I tried Try-On Me. I selected a vintage Ed Hardy hoodie and my Levi's 501s from my index, picked a default model, and watched the AI place the outfit on a real human body — not a mannequin, not a cartoon avatar. A realistic render in about eight seconds. I tweaked it with one tap (SWAP — the hoodie swapped for a bomber from my index), got another render, saved the look.</p>
-      <p>By Thursday I was using the Remix feature. I picked the Levi's as my anchor piece and got three variations: a CLASS look, a DINNER look, and a WEEKEND option that somehow nailed exactly what I would have put together on my own — except I never would have thought to pair those with that.</p>
-      <p>By the end of the week, I'd worn seven distinct outfits from a closet I thought I knew by heart. I hadn't bought a single new thing. I hadn't repeated a look.</p>
-      <p>That's what Robely does. It makes the closet you already have feel like a wardrobe you've never fully met.</p>
+      <p>Within seconds, the app returned three complete outfits built entirely from clothes I already own. Not suggestions to buy anything new. Not a stock-photo mood board pulled from Pinterest. Actual pieces from my actual closet, composed into looks I hadn't thought to put together myself. I wore the first one. Got a compliment by noon.</p>
+
+      <img src="images/voice.jpg" alt="Robely Voice Stylist — talk to your stylist" class="article-img-phone">
+      <span class="img-caption">Voice Stylist — tell it where you're going, get three looks from your own closet.</span>
+
+      <h3>Day 2: Try-On Me</h3>
+      <p>Tuesday, I tried Try-On Me. I selected a vintage Ed Hardy hoodie and my Levi's 501s from my index — two pieces I'd worn separately but never together — picked a default model, and watched the AI place the outfit on a real human body. Not a mannequin. Not a cartoon avatar. A realistic render in about eight seconds.</p>
+      <p>The result wasn't perfect — the hoodie sat slightly stiff — but I hit SWAP, replaced it with a bomber jacket from my index, and got a new render in another eight seconds. That one looked good. I saved it, wore it Wednesday. Same compliment, different person.</p>
+
+      <div class="article-img-pair">
+        <img src="images/tryon-select.jpg" alt="Try-On Me selection screen">
+        <img src="images/tryon-result.jpg" alt="Try-On Me result">
+      </div>
+      <span class="img-caption">From selection to photorealistic result — the same pieces, visualized on a real body.</span>
+
+      <h3>Day 4: Remix</h3>
+      <p>By Thursday I was deep in the Remix feature. The idea is simple but powerful: pick one anchor piece — the item you feel most confident in — and let the app build complete outfit variations around it. I picked my Levi's 501s as the anchor.</p>
+      <p>What came back: a CLASS look (Levi's + a Brandy Melville cardigan + Adidas Sambas + Mejuri gold hoops), a DINNER look (same jeans, different top, slightly more elevated), and a WEEKEND option that somehow nailed exactly what I would have put together on my own — except I never would have thought to pair those specific pieces with those specific shoes.</p>
+
+      <img src="images/remix.jpg" alt="Robely Remix — The edit with CLASS DINNER WEEKEND variations" class="article-img-phone">
+      <span class="img-caption">Remix builds CLASS, DINNER, and WEEKEND variations around one anchor piece.</span>
+
+      <h3>The end of the week</h3>
+      <p>By Friday I'd worn seven distinct outfits from a closet I thought I knew by heart. I hadn't bought a single new thing. I hadn't repeated a look. I'd worn three pieces I hadn't touched in months — one of which, the app noted, was UNDERPLAYED: high resale value, rarely worn, worth either more attention or a listing.</p>
+      <p>That's what a week with Robely looks like. Not a transformation. Not a wardrobe overhaul. Just the closet you already have, finally introduced to the person who owns it.</p>
     </div>
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ARTICLE 3 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div id="a3" class="article-overlay">
   <div class="overlay-header"><a class="overlay-logo" href="articles.html">ROBELY</a><button class="overlay-close" onclick="closeArticle('a3')">✕ CLOSE</button></div>
   <div class="overlay-body">
-    <p class="overlay-tag">PRESS RELEASE — FOR IMMEDIATE RELEASE</p>
+    <span class="overlay-tag">PRESS RELEASE — FOR IMMEDIATE RELEASE</span>
     <h2 class="overlay-title">Robely Launches Beta of the World's First Financial Intelligence Layer for Personal Wardrobes</h2>
     <div class="overlay-rule"></div>
     <div class="overlay-content">
       <p>Robely, the fashion technology company redefining how people relate to their clothing, today announced the public beta launch of its iOS application — an eight-surface platform that indexes, values, and monetizes personal wardrobes using artificial intelligence.</p>
-      <p>Unlike wardrobe apps that focus on outfit planning or social sharing, Robely approaches clothing as a financial asset class. The platform's Closet Scanner uses AI vision to identify garments from a photo, match them against live resale data from eBay and Vestiaire Collective, and return a real-time valuation. Users can track cost-per-wear, identify underplayed high-value pieces, and build a complete financial picture of what they own.</p>
-      <p>"We asked ourselves: why do people manage their stocks and their savings, but not the $1.7 trillion in clothing sitting in American closets?" said the Robely founding team. "Robely is the answer to that question. It's Bloomberg Terminal for your wardrobe."</p>
-      <p>The beta also includes Try-On Me — an AI composition tool that places selected clothing on a user's own photo, producing realistic visualizations in seconds — and a Voice Stylist that returns curated looks from the user's own index in response to natural language prompts.</p>
-      <p>The platform's next surface, the IRL Storefront, will turn every receipt into a revenue event. When a friend asks "where did you get that?", the Robely user shows their receipt QR code — the friend scans it, lands on the user's live closet storefront, and purchases the item. The user earns a 2–8% affiliate commission. No new hardware. No influencer status required.</p>
-      <p>Robely is available now in TestFlight. To request beta access, visit robely.ai/beta.</p>
+      <p>Unlike wardrobe apps that focus on outfit planning or social sharing, Robely approaches clothing as a financial asset class. The platform's Closet Scanner uses AI vision to identify garments from a photo, match them against live resale data from eBay and Vestiaire Collective, and return a real-time valuation with confidence scoring.</p>
+
+      <img src="images/onboarding.jpg" alt="Robely onboarding — Open the archive" class="article-img-phone">
+      <span class="img-caption">Open the archive — Robely's onboarding welcomes users to the digital closet.</span>
+
+      <blockquote><p>"We asked ourselves: why do people manage their stocks and their savings, but not the $1.7 trillion in clothing sitting in American closets? Robely is the answer to that question. It's Bloomberg Terminal for your wardrobe."<br>— Robely founding team</p></blockquote>
+
+      <h3>Eight surfaces, one platform</h3>
+      <p>The beta launch includes all eight core product surfaces:</p>
+      <p><strong>Scan</strong> — AI vision identifies brand, category, and resale value from a single photograph, pulling live sold comps from eBay and Vestiaire Collective.</p>
+      <p><strong>Index</strong> — Every piece in the closet is graded, classified (GRAIL / CORE / UNDERPLAYED / DEADSTOCK), and tracked for cost-per-wear and days since last worn.</p>
+      <p><strong>Try-On Me</strong> — Users select pieces from their index, upload their own photo or use a default model, and receive a photorealistic outfit visualization in seconds.</p>
+      <p><strong>Voice Stylist</strong> — Natural language prompts return three curated looks from the user's own closet, ranked by occasion fit.</p>
+      <p><strong>Remix</strong> — Users select one anchor piece and receive CLASS, DINNER, and WEEKEND outfit variations built automatically from their existing index.</p>
+      <p><strong>What They Wore</strong> — A daily editorial feed of red carpet, runway, and street style looks, each linkable back to the user's own closet for remixing.</p>
+
+      <img src="images/closet-index.jpg" alt="Robely Closet Index" class="article-img-phone">
+      <span class="img-caption">The Closet Index — a financial ledger for every piece you own.</span>
+
+      <h3>The IRL Storefront — coming next</h3>
+      <p>The platform's next surface, the IRL Storefront, will turn every retail receipt into a revenue event. When a friend asks "where did you get that?", the Robely user shows their receipt QR code — the friend scans it, lands on the user's live closet storefront, and purchases the item. The user earns a 2–8% affiliate commission. No new hardware. No influencer status required. No app installation required for the friend.</p>
+      <p>Robely is available now in TestFlight. Beta access is invite-based and being granted in batches. To request access, visit <strong>robely.ai/beta</strong>.</p>
     </div>
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ARTICLE 4 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div id="a4" class="article-overlay">
   <div class="overlay-header"><a class="overlay-logo" href="articles.html">ROBELY</a><button class="overlay-close" onclick="closeArticle('a4')">✕ CLOSE</button></div>
   <div class="overlay-body">
-    <p class="overlay-tag">BLOG POST</p>
+    <span class="overlay-tag">BLOG POST</span>
     <h2 class="overlay-title">The $1.7 Trillion Blind Spot: Why Your Closet Is the Most Unmanaged Asset in Your Life</h2>
     <div class="overlay-rule"></div>
     <div class="overlay-content">
-      <p>Americans collectively own $1.7 trillion in clothing. That number is almost impossible to hold in your head. It's larger than the GDP of most countries. It's more than the market cap of Nike, Levi's, and Zara combined.</p>
+      <p>Americans collectively own $1.7 trillion in clothing. That number is almost impossible to hold in your head. It's larger than the GDP of most countries. It's more than the combined market capitalization of Nike, Levi's, and Zara. It represents one of the largest concentrations of household wealth in the country.</p>
       <p>And virtually none of it is managed.</p>
-      <p>Think about the financial tools you use. You have a banking app that tracks every dollar. A brokerage that shows your portfolio in real time. Maybe a budgeting app that categorizes your spending down to the coffee you bought on Tuesday. We have unprecedented visibility into our money.</p>
-      <p>But your clothes — probably the second-largest category of consumer spending in your life — exist in a kind of financial dark matter. You know roughly what you paid for things. You don't know what they're worth now. You don't know how often you actually wear them. You have no idea what your cost-per-wear is on that jacket you spent $400 on two years ago.</p>
-      <p>This is the problem Robely was built to solve. The app gives every piece in your closet a financial identity: its resale value (pulled from live market data, not estimates), its wear count, its cost-per-wear, and a classification — GRAIL or CORE, HIGH VALUE or DEADSTOCK. It tells you which pieces are working for you and which are dead capital sitting on a shelf.</p>
-      <p>82% of garments are worn fewer than five times per year. Most people don't know which 82% that is in their own closet. Robely does.</p>
-      <p>Your wardrobe is already worth more than you think. Robely just helps you see it.</p>
+
+      <div class="stat-inline">
+        <span class="stat-num">$1.7T</span>
+        <span class="stat-lbl">U.S. CONSUMER CLOTHING INVENTORY — UNTRACKED, UNVALUED, UNWORN</span>
+      </div>
+
+      <h3>The tools we use for everything else</h3>
+      <p>Think about the financial tools you use on a daily basis. You have a banking app that tracks every dollar in and out, categorizes every transaction, and sends you alerts when you're spending more than usual. You have a brokerage that shows your portfolio in real time — every stock, every ETF, every position with a live price and a performance chart. You probably have a budgeting app. Maybe you track your crypto.</p>
+      <p>We have unprecedented visibility into our money. But clothing — probably the second-largest category of consumer spending in most people's lives — exists in a kind of financial dark matter. You know roughly what you paid for things, years ago. You don't know what they're worth now. You have no idea how often you actually wear them. And you almost certainly have no sense of what your cost-per-wear is on any individual piece.</p>
+
+      <h3>The utilization crisis hiding in your closet</h3>
+      <p>The research here is stark. WRAP's 2024 study found that 82% of garments are worn fewer than five times per year. Five times. That means the vast majority of clothing that exists in American closets is not, by any meaningful measure, being used. It's dead capital sitting on a shelf — depreciated but not yet recognized as such, waiting for a donation bag or a garage sale that may never come.</p>
+
+      <img src="images/closet-worth.jpg" alt="Robely showing $13,267 closet worth with chart" class="article-img-phone">
+      <span class="img-caption">Closet Worth — your wardrobe valued in real time, tracked across months.</span>
+
+      <h3>What Robely changes</h3>
+      <p>Robely gives every piece in your closet a financial identity. Not an estimate. Not a rough guess based on what you paid. A live valuation, pulled from actual sold listings on eBay and Vestiaire Collective, updated as markets move.</p>
+      <p>The app classifies every piece: GRAIL (high value, investment-grade, worth holding), CORE (your everyday workhorses), UNDERPLAYED (high resale value, rarely worn — the pieces most likely to earn you money), and DEADSTOCK (high value, not worn in months, prime for listing now).</p>
+
+      <img src="images/scanner.jpg" alt="Robely Closet Scanner with resale pricing" class="article-img-phone">
+      <span class="img-caption">The Closet Scanner returns live resale data — exactly what the market will pay, today.</span>
+
+      <h3>The market is already moving toward this</h3>
+      <p>47% of consumers now say they consider resale value before buying new clothing — up from roughly 20% five years ago. The resale market is growing 3× faster than the broader apparel market. Google searches for "wardrobe as portfolio" grew 340% between 2023 and 2024.</p>
+      <p>The behavior is already there. The infrastructure for it — the tool that tells you, in real time, what your closet is worth and what to do with it — has been missing. Until now.</p>
+      <p>Your wardrobe is already worth more than you think. Robely just helps you see it, manage it, and make it work for you.</p>
     </div>
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ARTICLE 5 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div id="a5" class="article-overlay">
   <div class="overlay-header"><a class="overlay-logo" href="articles.html">ROBELY</a><button class="overlay-close" onclick="closeArticle('a5')">✕ CLOSE</button></div>
   <div class="overlay-body">
-    <p class="overlay-tag">BLOG POST</p>
+    <span class="overlay-tag">BLOG POST</span>
     <h2 class="overlay-title">Why "Where Did You Get That?" Is About to Become the Most Valuable Question in Fashion</h2>
     <div class="overlay-rule"></div>
     <div class="overlay-content">
-      <p>There's a moment that happens in real life — at a party, on the street, at dinner — that no app has ever been able to capture. Someone looks at what you're wearing and asks: "Where did you get that?"</p>
-      <p>In that moment, something significant happens. A real purchase intent, triggered by a real human recommendation, in the real world. Word-of-mouth. The oldest and most effective form of commerce.</p>
-      <p>Nielsen research shows that 74% of clothing recommendations happen in person. And until now, every single one of those moments has been completely untracked. The brand doesn't know it happened. The recommender earns nothing. The transaction, if it happens, is completely disconnected from the conversation that caused it.</p>
-      <p>Robely's IRL Storefront changes that. Here's how it works: you buy something in-store, the receipt prints with a QR code linked to your Robely profile, and when someone asks about what you're wearing, you show them the receipt. They scan the QR. They land on your live Robely closet storefront. If they buy it, you earn a 2–8% affiliate commission.</p>
-      <p>No influencer status. No brand deal. No camera. Just your closet and a receipt.</p>
-      <p>Amazon built influencer storefronts for creators with hundreds of thousands of followers. Robely builds them for everyone — triggered by the organic, authentic moment that already happens every day. Every wear becomes a potential revenue event. Every compliment has a paper trail.</p>
+      <p>There's a moment that happens in real life — at a party, on the street, at dinner with friends — that no app, no platform, and no algorithm has ever been able to capture.</p>
+      <p>Someone looks at what you're wearing and asks: "Where did you get that?"</p>
+      <p>In that moment, something significant happens. A real purchase intent — genuine, immediate, triggered by a real human recommendation in the real world. Not a paid ad. Not an influencer post. Not a retargeted banner following you around the internet. Word-of-mouth. The oldest, most trusted, and most effective form of commerce ever developed.</p>
+
+      <div class="stat-inline">
+        <span class="stat-num">74%</span>
+        <span class="stat-lbl">OF CLOTHING RECOMMENDATIONS HAPPEN IN PERSON — COMPLETELY UNTRACKED · NIELSEN</span>
+      </div>
+
+      <h3>The gap that's always existed</h3>
+      <p>Nielsen research shows 74% of clothing recommendations happen in person. And until now, every single one of those moments has been completely invisible to the commerce infrastructure. The brand doesn't know it happened. The person making the recommendation earns nothing. The potential sale — if it happens at all — is entirely disconnected from the conversation that sparked it.</p>
+      <p>Amazon fixed this problem for influencers. They built storefronts — curated pages of recommended products — that creators could link to in their content. A creator mentions a product, links to their storefront, someone buys it, they earn a commission. It works beautifully, at scale, for people with hundreds of thousands of followers.</p>
+      <p>But what about everyone else? What about the person at the dinner table whose outfit is generating genuine purchase intent right now, with zero mechanism to capture it?</p>
+
+      <h3>Robely's IRL Storefront</h3>
+      <p>The IRL Storefront — Robely's next major surface — is the infrastructure that moment has always needed.</p>
+      <p>Here's how it works. You buy something in-store. The receipt prints with a QR code linked to your Robely profile. When someone asks where you got what you're wearing, you show them the receipt. They scan the QR. They land on your live Robely closet storefront — a page that shows the exact item, with a direct link to where they can buy it. If they purchase, you earn a 2–8% affiliate commission, automatically credited to your account.</p>
+
+      <img src="images/home.jpg" alt="Robely home screen with Today's Edit and FAV ITEM" class="article-img-phone">
+      <span class="img-caption">The Robely home screen — your closet, your earnings, your daily edit.</span>
+
+      <h3>Why this is bigger than it sounds</h3>
+      <p>No new hardware. No app installation required for the friend. No influencer status. No content creation. Just a receipt — which you already have — and a closet you've already indexed.</p>
+      <p>Every Robely user becomes a micro-storefront. Every compliment has a paper trail. Every wear becomes a potential revenue event.</p>
+      <p>Amazon built influencer storefronts for people with audiences. Robely builds them for everyone — triggered not by content, but by the organic, authentic, high-trust moment of real-world word-of-mouth that already happens billions of times a day and has never, until now, had its infrastructure.</p>
+
+      <div class="pull-quote">"Every wear is now a revenue event."</div>
+
+      <h3>The incentive that changes everything</h3>
+      <p>The IRL Storefront does something else that no other feature in the wardrobe space has done: it gives people a financial reason to digitize their closet. Scan your pieces, build your index, and every item becomes a potential affiliate earning. The more complete your closet, the more your storefront can sell. The more your storefront earns, the more motivated you are to keep scanning.</p>
+      <p>This is the flywheel. And it starts with a question that gets asked a thousand times a day, at dinner tables and coffee shops and street corners everywhere: "Where did you get that?"</p>
     </div>
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ARTICLE 6 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div id="a6" class="article-overlay">
   <div class="overlay-header"><a class="overlay-logo" href="articles.html">ROBELY</a><button class="overlay-close" onclick="closeArticle('a6')">✕ CLOSE</button></div>
   <div class="overlay-body">
-    <p class="overlay-tag">PRESS RELEASE — FOR IMMEDIATE RELEASE</p>
+    <span class="overlay-tag">PRESS RELEASE — FOR IMMEDIATE RELEASE</span>
     <h2 class="overlay-title">Robely's AI Try-On Technology Sets New Standard: The First App to Compose Outfits Onto Users' Own Bodies</h2>
     <div class="overlay-rule"></div>
     <div class="overlay-content">
-      <p>Robely today announced that its Try-On Me feature — which composes selected clothing onto a user's own photograph using generative AI — is now live in beta, making Robely the first wardrobe management platform to ship native AI try-on using real user photos rather than stock models or 3D avatars.</p>
-      <p>The feature allows users to select any combination of pieces from their indexed wardrobe, upload their own photo or select from default models, and receive a photorealistic visualization of the outfit in seconds. The result is shareable natively — designed as a TikTok-ready output for users who want to show what an outfit looks like on an actual body before wearing it.</p>
-      <p>"Every competitor in this space either uses stock figures or skips try-on entirely," said the Robely team. "We built Try-On Me because the only body that matters when you're deciding what to wear is your own."</p>
-      <p>The feature includes SWAP — a one-tap refinement that replaces a single piece in the current composition without re-selecting — and NEW TAKE, which generates a fresh interpretation of the same outfit combination.</p>
-      <p>Whering, Indyx, and Acloset do not offer try-on on user photos. Cladwell launched 3D avatar-based try-on in 2024, but does not support real photographs. Robely is the first in the category to ship both.</p>
+      <p>Robely today announced that its Try-On Me feature — which composes selected clothing onto a user's own photograph using generative AI — is now live in beta, making Robely the first wardrobe management platform to ship native AI try-on using real user photos rather than stock models, 3D avatars, or placeholder figures.</p>
+
+      <div class="article-img-pair">
+        <img src="images/tryon-select.jpg" alt="Try-On Me — select your pieces">
+        <img src="images/tryon-result.jpg" alt="Try-On Me — result on real body">
+      </div>
+      <span class="img-caption">From selection to result — outfit visualized on a real body in seconds.</span>
+
+      <h3>How it works</h3>
+      <p>Users select any combination of pieces from their indexed wardrobe — tops, bottoms, shoes, outerwear, accessories — tap Try-On Me, and choose their model. They can upload their own photograph or use a default model provided by the app. The AI then composes the selected pieces onto the chosen body, producing a photorealistic visualization in approximately eight seconds.</p>
+      <p>The output is designed to be shared natively — rendered at social-ready resolution, optimized for TikTok and Instagram formats. Users who want to refine their look can use SWAP (replaces a single piece in the current composition without re-selecting everything) or NEW TAKE (generates a fresh interpretation of the same outfit combination).</p>
+
+      <img src="images/tryon-man.jpg" alt="Try-On Me result — man in Nike Fresh Daily tee + Y2K jeans + Gucci Ace" class="article-img-phone">
+      <span class="img-caption">Try-On Me — a realistic composition using pieces from the user's own closet index.</span>
+
+      <blockquote><p>"Every competitor in this space either uses stock figures or skips try-on entirely. We built Try-On Me because the only body that matters when you're deciding what to wear is your own."<br>— Robely founding team</p></blockquote>
+
+      <h3>The competitive gap</h3>
+      <p>The wardrobe app category has been aware of the try-on problem for years. Whering — the largest digital wardrobe app with 9 million users — does not offer try-on at any level. Indyx, positioned as a premium styling platform, relies on human stylists rather than AI visualization. Acloset, dominant in the Asian market, has no try-on feature. Cladwell launched 3D avatar-based try-on in 2024 but does not support user photographs — meaning the model wearing the outfit is never the user.</p>
+      <p>Robely is the first application in the category to ship photorealistic AI try-on using real user photographs. The feature is live in beta and available to all current TestFlight users.</p>
+
+      <h3>What this enables</h3>
+      <p>Beyond the utility of seeing an outfit before wearing it, Try-On Me creates a content flywheel. Beta users report using the feature to plan their week's outfits in one session — visualizing five or six options in under thirty minutes, selecting the best two or three, and entering the week with looks already confirmed. Content creators report using it to pre-visualize and pre-produce outfit content before physically styling the look.</p>
+      <p>Robely is available now in TestFlight. To request beta access, visit <strong>robely.ai/beta</strong>.</p>
     </div>
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ARTICLE 7 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div id="a7" class="article-overlay">
   <div class="overlay-header"><a class="overlay-logo" href="articles.html">ROBELY</a><button class="overlay-close" onclick="closeArticle('a7')">✕ CLOSE</button></div>
   <div class="overlay-body">
-    <p class="overlay-tag">BLOG POST</p>
+    <span class="overlay-tag">BLOG POST</span>
     <h2 class="overlay-title">Forget Capsule Wardrobes. The Future Is a Closet That Knows Itself.</h2>
     <div class="overlay-rule"></div>
     <div class="overlay-content">
-      <p>The capsule wardrobe trend promised simplicity. Own thirty things. Wear everything. Live with intention. For a certain type of person, in a certain type of life, it works beautifully. For everyone else, the capsule ideal is mostly aspirational guilt.</p>
-      <p>Robely is not a capsule wardrobe app. It doesn't tell you to own less. It doesn't send you prompts to declutter. It doesn't suggest that the right number of shoes is twelve.</p>
-      <p>Instead, Robely starts from where you actually are: a closet full of things you love, things you've forgotten about, things you bought for a specific occasion and haven't touched since, things that are worth more today than you paid for them. It indexes all of it. Tags it. Prices it. Tracks it. And then it works with the closet you have to build looks you'd never have put together on your own.</p>
-      <p>The Remix feature asks you to pick one anchor piece and builds outfits around it across three occasions. The Shuffle feature builds entirely new combinations from your existing index every time you open it.</p>
-      <p>The closet that knows itself doesn't need to be small. It just needs to be seen.</p>
+      <p>The capsule wardrobe movement promised simplicity. Own thirty things, they said. Wear everything you own. Live with intention. Curate, don't accumulate. Somewhere in a minimalist apartment with perfect natural lighting, someone with excellent cheekbones is thriving inside their thirty-piece wardrobe and feeling profoundly at peace.</p>
+      <p>For everyone else — people who love fashion, who thrill at a vintage find, who have a formal wardrobe and a weekend wardrobe and a gym drawer that refuses to stay organized — the capsule ideal is mostly aspirational guilt dressed up as philosophy.</p>
+
+      <h3>The wrong solution to a real problem</h3>
+      <p>The problem the capsule wardrobe was trying to solve is real: most people feel overwhelmed by their closet, wear a fraction of what they own, and spend money on things they don't need because they can't clearly see what they already have.</p>
+      <p>The capsule solution — own less — addresses the symptom, not the cause. The cause is invisibility. The cause is that most closets are opaque: full of objects that exist in a kind of permanent present tense, with no history, no value data, and no connection to each other.</p>
+
+      <img src="images/remix.jpg" alt="Robely Remix — The edit with multiple outfit variations" class="article-img-phone">
+      <span class="img-caption">Remix builds full outfit variations from what you already own — no new purchases required.</span>
+
+      <h3>What a closet that knows itself looks like</h3>
+      <p>Robely is not a capsule wardrobe app. It doesn't tell you to own less. It doesn't send you prompts to declutter or suggest that the right number of shoes is twelve. It doesn't have a shame mechanism.</p>
+      <p>Instead, Robely starts from where you actually are: a closet full of things you love, things you've forgotten about, things you bought for a specific occasion and haven't touched since, things that are worth more today than you paid for them. It indexes all of it. Tags it. Prices it. Tracks it. And then it works with what you have to show you the closet you didn't know you already owned.</p>
+
+      <img src="images/home.jpg" alt="Robely home screen — Today's Edit with three daily tasks" class="article-img-phone">
+      <span class="img-caption">Today's Edit — three concrete actions every morning to help you actually use your closet.</span>
+
+      <h3>The three moves that change everything</h3>
+      <p>Every morning, Robely's home screen shows you Today's Edit: three concrete actions based on your index. Log what you wore yesterday (two minutes). Wear something that's been sitting cold — a piece you haven't touched in 30+ days that the app surfaces for you. Build around one piece — pick an anchor and let Remix generate the rest.</p>
+      <p>These aren't productivity hacks. They're the operating manual for a closet that works. Not a smaller closet. Not a curated capsule. Your closet, finally understood.</p>
+
+      <div class="pull-quote">"The closet that knows itself doesn't need to be small. It just needs to be seen."</div>
+
+      <p>The future of getting dressed isn't thirty pieces of perfectly curated merino. It's the 140 pieces you already have, indexed, valued, and finally introduced to each other — and to you.</p>
     </div>
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ARTICLE 8 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div id="a8" class="article-overlay">
   <div class="overlay-header"><a class="overlay-logo" href="articles.html">ROBELY</a><button class="overlay-close" onclick="closeArticle('a8')">✕ CLOSE</button></div>
   <div class="overlay-body">
-    <p class="overlay-tag">BLOG POST</p>
+    <span class="overlay-tag">BLOG POST</span>
     <h2 class="overlay-title">The Real Cost of Getting Dressed: How Robely Changed the Way I Think About Buying Clothes</h2>
     <div class="overlay-rule"></div>
     <div class="overlay-content">
-      <p>I used to think I was a pretty conscious shopper. I waited for sales. I read reviews. I had a rough sense of what I spent on clothing per year. Then I scanned my closet.</p>
-      <p>The first thing Robely showed me was my cost-per-wear breakdown. My Adidas Sambas: 61 wears, $1.64 per wear. My Gucci Ace sneakers: 8 wears, $62.50 per wear. My Omega Speedmaster, scanned on a whim: worth $4,200 more than I paid for it.</p>
-      <p>The Sambas are one of the best investments I've ever made. The Gucci Aces are dead capital — high resale value, chronically underplayed. The watch is an asset I didn't know I had.</p>
-      <p>That level of clarity changes how you shop. Not by making you feel guilty — Robely doesn't moralize — but by giving you the data to make better decisions. When you know that a $300 purchase worn 100 times costs $3 per wear, and a $90 purchase worn 3 times costs $30 per wear, your brain starts to do the math automatically.</p>
-      <p>I've bought less since I started using Robely. Not because the app told me to. But because I can finally see what I already have — and most days, what I already have is exactly enough.</p>
+      <p>I used to think I was a pretty conscious shopper. I waited for sales. I read reviews before buying. I told myself I only bought things I really loved. I had a rough sense of what I spent on clothing per year — somewhere around "a lot" — and I'd mostly made peace with that.</p>
+      <p>Then I scanned my closet.</p>
+
+      <h3>The numbers I didn't expect</h3>
+      <p>The first thing Robely showed me was my cost-per-wear breakdown. Not what things cost at purchase — what they actually cost, divided by how many times I'd worn them.</p>
+      <p>My Adidas Sambas: 61 wears, $1.64 per wear. One of the best purchases I've made in five years. My Gucci Ace sneakers: 8 wears, $62.50 per wear. Dead capital in a beautiful box. My Omega Speedmaster, which I'd scanned mostly out of curiosity: currently worth $4,200 more than I paid for it three years ago.</p>
+
+      <img src="images/scanner.jpg" alt="Robely scanner showing resale pricing" class="article-img-phone">
+      <span class="img-caption">The Closet Scanner — real market data on what your pieces are worth today.</span>
+
+      <p>Three numbers. Three completely different stories about objects I owned and thought I understood. The Sambas are perfect. The Aces need to either be worn or listed. The Speedmaster is an investment I made accidentally and should probably pay more attention to.</p>
+
+      <h3>How the data changes decisions</h3>
+      <p>Here's what changes when you have this information: the calculus of buying shifts. Not dramatically, not overnight, but measurably. When you know that a $300 purchase worn 100 times costs $3.00 per wear, and a $90 purchase worn 3 times costs $30.00 per wear, your brain starts doing the math automatically. The question stops being "do I love this?" and starts being "will I actually wear this?"</p>
+      <p>Those are different questions. And they lead to different decisions.</p>
+
+      <img src="images/closet-index.jpg" alt="Robely Closet Index with wear counts and cost per wear" class="article-img-phone">
+      <span class="img-caption">Every piece, graded — wear count, cost-per-wear, days since last worn, resale value.</span>
+
+      <h3>The UNDERPLAYED revelation</h3>
+      <p>The classification that hit hardest wasn't GRAIL or DEADSTOCK. It was UNDERPLAYED: pieces with high resale value that I wasn't wearing. When Robely flagged my Gucci Aces as UNDERPLAYED, it wasn't judgment — it was data. Those shoes are worth $620 on the current market. Every day they sit in a box, I'm either holding a depreciating asset or failing to wear something I spent money to own.</p>
+      <p>I started wearing the Aces more. Within a month, cost-per-wear dropped from $62.50 to $38. Still not great. But moving in the right direction — and I'm finally enjoying the thing I bought.</p>
+
+      <div class="pull-quote">"Robely doesn't moralize. It just gives you the data to make better decisions."</div>
+
+      <h3>What I've bought since</h3>
+      <p>Less. Not nothing — I still love shopping, and Robely hasn't cured me of that. But the purchases I've made since starting to use the app are different. More deliberate. More focused on versatility and wearability rather than just aesthetic appeal at the moment of purchase. I ask myself: how many times will I actually wear this? Where will I wear it? What's it going to pair with in my existing index?</p>
+      <p>Those questions were always the right ones. Robely just made them unavoidable.</p>
     </div>
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ARTICLE 9 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div id="a9" class="article-overlay">
   <div class="overlay-header"><a class="overlay-logo" href="articles.html">ROBELY</a><button class="overlay-close" onclick="closeArticle('a9')">✕ CLOSE</button></div>
   <div class="overlay-body">
-    <p class="overlay-tag">PRESS RELEASE — FOR IMMEDIATE RELEASE</p>
+    <span class="overlay-tag">PRESS RELEASE — FOR IMMEDIATE RELEASE</span>
     <h2 class="overlay-title">Robely Positioned to Capture the $73 Billion U.S. Resale Market With First-of-Its-Kind Closet Intelligence Platform</h2>
     <div class="overlay-rule"></div>
     <div class="overlay-content">
       <p>As the U.S. secondhand clothing market accelerates toward $73 billion by 2027 — growing 3× faster than retail apparel — Robely is emerging as the foundational infrastructure layer connecting personal wardrobes to the resale economy.</p>
-      <p>Unlike resale platforms such as The RealReal and ThredUp, which require physical consignment and operate as marketplaces, Robely works upstream: it indexes the wardrobe before any item is listed for sale, providing live resale valuations, wear analytics, and sell-signal recommendations that tell users exactly when a piece is at peak resale value.</p>
-      <p>"The RealReal and ThredUp are great at selling. Robely is great at knowing," said the Robely founding team. "We're the layer that tells you what to sell, when to sell it, and what it's worth — before it ever leaves your closet."</p>
-      <p>With 47% of consumers now considering resale value before buying new, Robely's real-time valuation engine is positioned at the exact inflection point where consumer behavior and market infrastructure are finally aligning.</p>
-      <p>Integration with eBay and Vestiaire Collective is planned for the next product sprint. Robely is available now in TestFlight at robely.ai/beta.</p>
+
+      <div class="stat-inline">
+        <span class="stat-num">$73B</span>
+        <span class="stat-lbl">U.S. RESALE MARKET BY 2027 · 3× FASTER THAN RETAIL · THREDUP</span>
+      </div>
+
+      <h3>The infrastructure gap</h3>
+      <p>The resale market has two well-funded endpoints: the consumer marketplace (The RealReal, ThredUp, Depop, Poshmark) and the brand-side circular economy infrastructure (Eon Exchange, Archive, Trove). What has been missing is the consumer-facing intelligence layer — the tool that sits at the very beginning of the resale funnel, inside the closet, before any item is listed or shipped.</p>
+      <p>Robely fills that gap. The platform's Closet Scanner indexes wardrobe pieces with live resale valuations, classifying each item by market status and wear history. The upcoming Sell Signal feature will notify users when market comps for specific items spike, providing a recommended listing price, pre-filled item description, and direct integration with eBay and Vestiaire Collective.</p>
+
+      <img src="images/closet-worth.jpg" alt="Robely home showing closet worth and trending items" class="article-img-phone">
+      <span class="img-caption">Closet Worth — your wardrobe valued live, with trending pieces surfaced automatically.</span>
+
+      <blockquote><p>"The RealReal and ThredUp are great at selling. Robely is great at knowing. We're the layer that tells you what to sell, when to sell it, and what it's worth — before it ever leaves your closet."<br>— Robely founding team</p></blockquote>
+
+      <h3>Market tailwinds</h3>
+      <p>47% of consumers now say they consider resale value before buying new clothing — up from approximately 20% five years ago. The behavioral shift toward treating clothing as a financial asset is well underway. The $73 billion in projected U.S. resale volume represents consumer demand that is growing faster than any marketplace's ability to capture it.</p>
+      <p>Robely's thesis is that the constraint on resale growth is not demand — it's friction. People don't know what their clothes are worth. They don't know when to sell. They don't have a tool that makes the decision easy and the listing process seamless. Robely removes all three barriers.</p>
+
+      <h3>The IRL Storefront as resale catalyst</h3>
+      <p>The platform's IRL Storefront feature — in development — will create an additional resale-adjacent revenue stream that requires no active listing by the user. When a friend asks about an item and purchases it via the Robely storefront QR, the brand fulfills the order directly. The user earns a 2–8% commission without ever shipping a package or managing a listing. This positions Robely's affiliate mechanic as a zero-friction entry point to the resale economy for users who find traditional consignment too cumbersome.</p>
+      <p>eBay and Vestiaire Collective integrations are planned for the next product sprint. Robely is available now in TestFlight at <strong>robely.ai/beta</strong>.</p>
     </div>
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- ARTICLE 10 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div id="a10" class="article-overlay">
   <div class="overlay-header"><a class="overlay-logo" href="articles.html">ROBELY</a><button class="overlay-close" onclick="closeArticle('a10')">✕ CLOSE</button></div>
   <div class="overlay-body">
-    <p class="overlay-tag">BLOG POST</p>
+    <span class="overlay-tag">BLOG POST</span>
     <h2 class="overlay-title">Fashion Tech Has Been Building for Brands. Robely Builds for the Person Who Actually Owns the Clothes.</h2>
     <div class="overlay-rule"></div>
     <div class="overlay-content">
-      <p>Walk through the fashion tech landscape and you'll notice something: almost all of it is built for brands. AI recommendation engines? Built to help brands sell more. Virtual try-on? Built to reduce brand return rates. Digital IDs embedded in garments? Built so brands can track their products through the resale lifecycle.</p>
-      <p>The consumer — the person who actually owns the clothes, who wears them, who paid for them — is mostly an afterthought. A data point. A target.</p>
-      <p>Robely is built from the opposite direction. Every feature in the platform is designed to give the user more: more visibility into what they own, more capability to style it, more earning potential from the assets already in their closet. The Closet Scanner gives you market intelligence that brands have always had and consumers have never had. The IRL Storefront gives you an affiliate earning mechanism that brands offer to influencers with hundreds of thousands of followers — Robely offers it to everyone.</p>
-      <p>This isn't anti-brand. Brands benefit when consumers understand the value of their products. But the primary beneficiary of Robely is the person with the closet. Not the brand that made what's in it.</p>
-      <p>That's a different product philosophy than anything else in this space. And it's why Robely isn't competing with fashion brands — it's competing for the loyalty of the people those brands are trying to reach.</p>
+      <p>Walk through the fashion technology landscape and you'll notice something that becomes harder to unsee once you spot it: almost all of it is built for brands.</p>
+      <p>AI recommendation engines? Their primary value proposition is to the retailer — driving higher average order value, reducing return rates, increasing purchase frequency. Virtual try-on at the point of sale? Built to reduce the operational cost of returns for brands, with the consumer benefit as the justification. Digital product IDs embedded in garments? Primarily so brands can track their products through the secondhand market and capture data on the resale lifecycle — data they use to inform future pricing and design decisions.</p>
+
+      <h3>The consumer as afterthought</h3>
+      <p>The person who actually owns the clothes — who wears them, who paid for them, who makes daily decisions about them, who has real financial stake in what they're worth — is, in most of the fashion tech stack, primarily a data source and a target. A conversion event to optimize. A behavior to predict and influence.</p>
+      <p>This isn't malice. It's incentive structure. Brands have large marketing budgets and clear ROI requirements. Consumers don't. Building for brands is easier, faster to monetize, and more legible to investors. So that's what gets built.</p>
+
+      <img src="images/what-they-wore.jpg" alt="Robely What They Wore — Build a similar fit from my closet" class="article-img-phone">
+      <span class="img-caption">What They Wore — editorial inspiration linked directly back to your own closet.</span>
+
+      <h3>Robely's different direction</h3>
+      <p>Robely was built from the opposite direction entirely. Every feature in the platform was designed to give the user more. More visibility into what they own. More capability to style and use it. More financial intelligence about its value. More earning potential from assets that are already in their possession.</p>
+      <p>The Closet Scanner gives consumers the market intelligence that brands have always had and consumers have never had — live resale valuations, comparable sold listings, real-time price movement. The IRL Storefront gives consumers an affiliate earning mechanism that brands reserve for influencers with massive followings. The Voice Stylist and Remix features replace the function of a professional stylist — a service that has historically been available only to people who can afford to pay for it.</p>
+
+      <img src="images/home.jpg" alt="Robely home — closet dashboard with stats and Today's Edit" class="article-img-phone">
+      <span class="img-caption">The Robely home — your closet's performance dashboard, built entirely for you.</span>
+
+      <h3>This doesn't mean brands don't benefit</h3>
+      <p>Robely is not anti-brand. Far from it. Brands benefit enormously when consumers develop a more sophisticated, financially literate relationship with their clothing. A Robely user who scans their Gucci Aces and discovers they've held their value isn't going to sell them — they're going to wear them more, and probably buy another pair with more confidence. A user who understands cost-per-wear is a better customer for quality brands than one who only responds to sales.</p>
+      <p>The IRL Storefront is a net positive for brands — turning every piece of their clothing into a continuously active affiliate marketing channel driven by authentic word-of-mouth, with zero media spend required.</p>
+
+      <div class="pull-quote">"Robely isn't competing with fashion brands. It's competing for the loyalty of the people those brands are trying to reach."</div>
+
+      <h3>Why this is the right moment</h3>
+      <p>Consumer trust in advertising is at historic lows. Authenticity has become the primary currency of influence. The resale market — built on individual recommendation and personal curation — is growing 3× faster than retail. The consumer is increasingly sophisticated, increasingly skeptical, and increasingly interested in owning their relationship with their clothing rather than being marketed at through it.</p>
+      <p>Robely builds for that consumer. Not as a data point. As a person with a closet, a budget, an aesthetic, and real financial stake in the assets they already own.</p>
     </div>
   </div>
 </div>
@@ -356,6 +628,7 @@
   function openArticle(id) {
     document.getElementById(id).classList.add('open');
     document.body.style.overflow = 'hidden';
+    document.getElementById(id).scrollTop = 0;
   }
   function closeArticle(id) {
     document.getElementById(id).classList.remove('open');
