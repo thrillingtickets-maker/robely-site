@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Industry Coverage — Robely</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #14182E; --cream: #F5F0E6; --gold: #C9A262;
+      --offwht: #EDE8DC; --muted: #8B8070; --slate: #5A6070; --dark: #1A1E38;
+    }
+    body { font-family: 'EB Garamond', Georgia, serif; background: var(--cream); color: var(--dark); }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2.5rem; background: rgba(20,24,46,0.96); backdrop-filter: blur(12px);
+    }
+    .nav-logo { font-size: 1.4rem; letter-spacing: 0.18em; color: #fff; text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.78rem; letter-spacing: 0.12em; color: #8B8070; text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--navy); background: var(--gold); padding: 0.5rem 1.2rem; text-decoration: none; }
+
+    .page-hero { background: var(--cream); padding: 10rem 2.5rem 5rem; border-bottom: 1px solid rgba(201,162,98,0.3); }
+    .eyebrow { font-size: 0.8rem; letter-spacing: 0.22em; color: var(--gold); font-style: italic; margin-bottom: 1rem; }
+    h1 { font-size: clamp(3rem, 7vw, 6rem); color: var(--dark); font-weight: 400; line-height: 1; }
+    .rule { width: 100px; height: 3px; background: var(--gold); margin: 2rem 0; }
+    .hero-sub { font-size: 1.2rem; font-style: italic; color: var(--slate); max-width: 560px; line-height: 1.6; }
+
+    .section { padding: 5rem 2.5rem; max-width: 1000px; margin: 0 auto; }
+
+    /* Context cards — industry stats */
+    .context-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem; margin-bottom: 5rem;
+    }
+    .context-card {
+      background: var(--navy); border-top: 3px solid var(--gold); padding: 2rem 1.8rem;
+    }
+    .context-val { font-size: 2.8rem; color: var(--gold); line-height: 1; }
+    .context-label { font-size: 0.72rem; letter-spacing: 0.14em; color: var(--cream); margin-top: 0.5rem; font-weight: 500; }
+    .context-sub { font-size: 0.95rem; font-style: italic; color: var(--muted); margin-top: 0.4rem; line-height: 1.5; }
+
+    /* Coverage cards */
+    .section-label { font-size: 0.72rem; letter-spacing: 0.22em; color: var(--gold); margin-bottom: 2rem; }
+    .coverage-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; margin-bottom: 4rem;
+    }
+    .coverage-card {
+      background: var(--offwht); border-top: 2px solid var(--gold); padding: 2rem 1.8rem;
+      display: flex; flex-direction: column; gap: 0.8rem;
+    }
+    .coverage-outlet {
+      font-size: 0.72rem; letter-spacing: 0.18em; color: var(--gold); font-weight: 500;
+    }
+    .coverage-headline {
+      font-size: 1.2rem; color: var(--dark); line-height: 1.35;
+    }
+    .coverage-excerpt {
+      font-size: 0.95rem; font-style: italic; color: var(--slate); line-height: 1.6; flex: 1;
+    }
+    .coverage-date { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.08em; }
+    .coverage-link {
+      display: inline-block; margin-top: 0.5rem; font-size: 0.78rem;
+      letter-spacing: 0.12em; color: var(--gold); text-decoration: none;
+      border-bottom: 1px solid rgba(201,162,98,0.4); padding-bottom: 2px;
+    }
+    .coverage-link:hover { border-color: var(--gold); }
+
+    /* Placeholder state */
+    .coming-soon {
+      text-align: center; padding: 4rem 2rem;
+      border: 1px dashed rgba(201,162,98,0.4); background: var(--offwht);
+    }
+    .coming-soon p { font-size: 1.1rem; font-style: italic; color: var(--muted); line-height: 1.7; }
+    .coming-soon .cs-label { font-size: 0.72rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 1rem; font-style: normal; }
+
+    /* Press contact */
+    .press-block {
+      background: var(--navy); border-top: 3px solid var(--gold);
+      padding: 3rem; margin-top: 3rem; display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1.5rem;
+    }
+    .press-block h3 { font-size: 1rem; letter-spacing: 0.14em; color: var(--cream); margin-bottom: 0.4rem; }
+    .press-block p { font-size: 1rem; font-style: italic; color: var(--muted); }
+    .press-email {
+      font-size: 1rem; color: var(--gold); text-decoration: none; letter-spacing: 0.08em;
+      border-bottom: 1px solid rgba(201,162,98,0.4); padding-bottom: 2px;
+    }
+
+    footer {
+      background: var(--navy); border-top: 1px solid rgba(201,162,98,0.3);
+      padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-size: 1.2rem; letter-spacing: 0.18em; color: #fff; }
+    .footer-sub { font-size: 0.9rem; font-style: italic; color: var(--muted); }
+
+    @media (max-width: 720px) {
+      .nav-links { display: none; }
+      nav { padding: 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">ROBELY</a>
+  <ul class="nav-links">
+    <li><a href="index.html#product">Product</a></li>
+    <li><a href="index.html#tryon">Try-On</a></li>
+    <li><a href="index.html#storefront">Storefront</a></li>
+    <li><a href="coverage.html" style="color:#C9A262;">Coverage</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a class="nav-cta" href="beta.html">JOIN BETA</a>
+</nav>
+
+<div class="page-hero">
+  <p class="eyebrow">— The conversation</p>
+  <h1>Industry<br>Coverage.</h1>
+  <div class="rule"></div>
+  <p class="hero-sub">The market is moving toward us. Here's what the industry is saying about the space Robely is building in.</p>
+</div>
+
+<div class="section">
+
+  <!-- Market context stats -->
+  <p class="section-label">§ 01 &nbsp; MARKET CONTEXT</p>
+  <div class="context-grid">
+    <div class="context-card">
+      <div class="context-val">$73B</div>
+      <p class="context-label">U.S. RESALE MARKET BY 2027</p>
+      <p class="context-sub">3× growth from $24B in 2018 — ThredUP 2024 Resale Report</p>
+    </div>
+    <div class="context-card">
+      <div class="context-val">3×</div>
+      <p class="context-label">RESALE GROWS FASTER THAN RETAIL</p>
+      <p class="context-sub">Secondhand apparel growing 3× faster than the global apparel market overall</p>
+    </div>
+    <div class="context-card">
+      <div class="context-val">+340%</div>
+      <p class="context-label">WARDROBE-AS-PORTFOLIO SEARCHES</p>
+      <p class="context-sub">Google Trends 2023–2024 — consumers treating clothing as a financial asset</p>
+    </div>
+    <div class="context-card">
+      <div class="context-val">82%</div>
+      <p class="context-label">GARMENTS WORN FEWER THAN 5×</p>
+      <p class="context-sub">WRAP 2024 — the utilization crisis Robely directly addresses</p>
+    </div>
+  </div>
+
+  <!-- Coverage -->
+  <p class="section-label">§ 02 &nbsp; INDUSTRY COVERAGE</p>
+
+  <div class="coverage-grid">
+
+    <div class="coverage-card">
+      <p class="coverage-outlet">THREDUP · 2026</p>
+      <h3 class="coverage-headline">ThredUp's 14th Annual Resale Report: A New Era of Structural Competition and AI-Driven Discovery</h3>
+      <p class="coverage-excerpt">The U.S. secondhand market is growing 4× faster than retail. AI is now the engine scaling resale — from pricing to authentication to personalized discovery. 78% of retailers are investing in AI resale tools.</p>
+      <p class="coverage-date">April 2026</p>
+      <a class="coverage-link" href="https://ir.thredup.com/news-releases/news-release-details/thredups-14th-annual-resale-report-reveals-new-era-structural" target="_blank" rel="noopener">Read Report →</a>
+    </div>
+
+    <div class="coverage-card">
+      <p class="coverage-outlet">FASHIONISTA · 2025</p>
+      <h3 class="coverage-headline">Tech Is Fueling the Next Phase of Fashion Resale</h3>
+      <p class="coverage-excerpt">Wardrobe management platforms are well-positioned to expand into resale, rental, and repair. The wardrobe of tomorrow is as much about trading as it is about buying new.</p>
+      <p class="coverage-date">June 2025</p>
+      <a class="coverage-link" href="https://fashionista.com/2025/06/fashion-resale-tech-ai-future-evolution" target="_blank" rel="noopener">Read Article →</a>
+    </div>
+
+    <div class="coverage-card">
+      <p class="coverage-outlet">BUSINESS OF FASHION · 2025</p>
+      <h3 class="coverage-headline">Fashion Brands Are Missing Out on the Resale Opportunity</h3>
+      <p class="coverage-excerpt">Resale is no longer just a thrift-store alternative — it is a central part of fashion's future. Brands that don't engage with the secondhand economy risk losing relevance with Gen Z and Millennial consumers.</p>
+      <p class="coverage-date">2025</p>
+      <a class="coverage-link" href="https://www.businessoffashion.com/articles/retail/the-state-of-fashion-2026-report-resale-secondhand-fashion/" target="_blank" rel="noopener">Read Article →</a>
+    </div>
+
+    <div class="coverage-card">
+      <p class="coverage-outlet">THE REALREAL × EON · 2025</p>
+      <h3 class="coverage-headline">The RealReal and Eon Exchange Team Up: Digital IDs Power Luxury Resale</h3>
+      <p class="coverage-excerpt">The RealReal partnered with Eon Exchange to embed Digital IDs into luxury products — allowing customers to seamlessly consign items and boosting the circular economy. A direct signal that the industry is moving toward digitized wardrobes.</p>
+      <p class="coverage-date">2025</p>
+      <a class="coverage-link" href="https://wwd.com/business-news/business-features/the-realreal-joins-eon-exchange-retail-partner-1236131127/" target="_blank" rel="noopener">Read on WWD →</a>
+    </div>
+
+    <div class="coverage-card">
+      <p class="coverage-outlet">PYMNTS · 2026</p>
+      <h3 class="coverage-headline">AI Turned Thrift Into a Profitable Fashion Machine</h3>
+      <p class="coverage-excerpt">AI is removing the old headaches of secondhand — automating pricing, verification, and discovery — making resale as fast and frictionless as buying new. The infrastructure for clothing-as-asset is finally arriving.</p>
+      <p class="coverage-date">2026</p>
+      <a class="coverage-link" href="https://www.pymnts.com/artificial-intelligence-2/2026/ai-turned-thrift-into-a-profitable-fashion-machine/" target="_blank" rel="noopener">Read Article →</a>
+    </div>
+
+    <div class="coverage-card">
+      <p class="coverage-outlet">THE FASHION LAW</p>
+      <h3 class="coverage-headline">The Resale Market Watch: A Running Timeline of Resale Funding and M&A</h3>
+      <p class="coverage-excerpt">A live tracker of every major investment, acquisition, and funding round in the resale space — from Depop's $1.2B eBay acquisition to Alta's $11M raise. The capital is following the consumer.</p>
+      <p class="coverage-date">Ongoing</p>
+      <a class="coverage-link" href="https://www.thefashionlaw.com/the-resale-market-watch-a-running-list-of-funding-and-ma/" target="_blank" rel="noopener">View Tracker →</a>
+    </div>
+
+    <div class="coverage-card">
+      <p class="coverage-outlet">THREDUP · 2025</p>
+      <h3 class="coverage-headline">ThredUp's 2025 Resale Report: The Future of Fashion Is Resale</h3>
+      <p class="coverage-excerpt">The global secondhand apparel market is projected to hit $367 billion by 2029. 47% of consumers now consider resale value before buying new — a fundamental shift in how people relate to what they own.</p>
+      <p class="coverage-date">2025</p>
+      <a class="coverage-link" href="https://www.treet.co/post/key-takeaways-from-thredups-2025-resale-report" target="_blank" rel="noopener">Read Takeaways →</a>
+    </div>
+
+    <div class="coverage-card">
+      <p class="coverage-outlet">TRELLIS · 2025</p>
+      <h3 class="coverage-headline">Circular Boom: Resale Surges as New Fashion Sales Slow</h3>
+      <p class="coverage-excerpt">As first-hand fashion sales stagnate, the circular economy is accelerating. Consumers are increasingly treating their closets as rotating inventories — buying, wearing, and reselling with financial intent.</p>
+      <p class="coverage-date">2025</p>
+      <a class="coverage-link" href="https://trellis.net/article/circular-secondhand-fashion-resale-booming/" target="_blank" rel="noopener">Read Article →</a>
+    </div>
+
+  </div>
+
+  <!-- Press contact -->
+  <div class="press-block">
+    <div>
+      <h3>PRESS INQUIRIES</h3>
+      <p>For media requests, partnerships, and analyst briefings.</p>
+    </div>
+    <a class="press-email" href="mailto:press@robely.ai">press@robely.ai</a>
+  </div>
+
+</div>
+
+<footer>
+  <span class="footer-logo">ROBELY</span>
+  <span class="footer-sub">Own your Closet. Every piece. Every wear. Every dollar.</span>
+  <span style="font-size:0.75rem;letter-spacing:0.12em;color:#C9A262;">LIVE BETA</span>
+</footer>
+
+</body>
+</html>
